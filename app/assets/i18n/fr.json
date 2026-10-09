@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Accepter",
     "accepted": "Accepté",
@@ -107,9 +107,9 @@
       "saveWindowPlacement": "Sauvegarder l'emplacement de la fenêtre à la fermeture",
       "saveWindowPlacementWindows": "Sauvegarder la position de la fenêtre en quittant",
       "minimizeToTray": "Réduire dans la barre des tâches à la fermeture",
-      "launchAtStartup": "Lancer LocalSend à la connexion de l'utilisateur",
-      "launchMinimized": "Minimiser LocalSend lors du lancement",
-      "showInContextMenu": "Afficher LocalSend dans le menu contextuel",
+      "launchAtStartup": "Lancer LocalDrop à la connexion de l'utilisateur",
+      "launchMinimized": "Minimiser LocalDrop lors du lancement",
+      "showInContextMenu": "Afficher LocalDrop dans le menu contextuel",
       "animations": "Animations"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Autre",
-      "support": "Soutenir LocalSend",
+      "support": "Soutenir LocalDrop",
       "donate": "Faire une donation",
       "privacyPolicy": "Politique de confidentialité",
       "termsOfUse": "Conditions d'utilisation"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Interfaces réseau",
-    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
+    "info": "Par défaut, LocalDrop utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
     "preview": "Aperçu",
     "whitelist": "Liste blanche",
     "blacklist": "Liste noire"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(dossier LocalSend)",
+    "appDirectory": "(dossier LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
@@ -293,17 +293,17 @@
     "autoAccept": "Accepter automatiquement les requêtes",
     "requirePin": "Code PIN requis",
     "pinHint": "Le code PIN est \"{pin}\"",
-    "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
+    "encryptionHint": "LocalDrop utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente : {n}"
   },
   "webReceivePage": {
     "title": "Recevoir via un lien"
   },
   "aboutPage": {
-    "title": "À propos de LocalSend",
+    "title": "À propos de LocalDrop",
     "description": [
-      "Localsend est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichiers et des messages avec d'autres appareils connectés à votre réseau local. Une connexion à internet n'est pas requise.",
-      "Localsend est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements depuis la page officielle."
+      "LocalDrop est un logiciel gratuit et open-source qui vous permet de partager de manière sécurisée des fichiers et des messages avec d'autres appareils connectés à votre réseau local. Une connexion à internet n'est pas requise.",
+      "LocalDrop est disponible sur Android, iOS, macOS, Windows et Linux. Vous pouvez accéder à ces téléchargements depuis la page officielle."
     ],
     "author": "Auteur",
     "contributors": "Contributeurs",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Faire une donation",
-    "info": "LocalSend est gratuit, open-source et sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour soutenir son développement.",
+    "info": "LocalDrop est gratuit, open-source et sans aucune pub. Si vous aimez ce logiciel, vous pouvez faire un don pour soutenir son développement.",
     "donate": "Donner {amount}",
     "thanks": "Merci beaucoup !",
     "restore": "Restaurer les achats"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez donner cette permission à LocalSend dans les paramètres système.",
+      "description": "LocalDrop ne peut pas trouver d'autres appareils sans la permission de scanner votre réseau local. Veuillez donner cette permission à LocalDrop dans les paramètres système.",
       "gotoSettings": "Paramètres"
     },
     "messageInput": {
@@ -412,7 +412,7 @@
       "content": "Veuillez sélectionner au moins un fichier."
     },
     "noPermission": {
-      "title": "LocalSend n'a pas la permission",
+      "title": "LocalDrop n'a pas la permission",
       "content": "Vous n'avez pas accordé les autorisations nécessaires. Veuillez les accorder dans les paramètres systèmes."
     },
     "notAvailableOnPlatform": {
@@ -447,7 +447,7 @@
       "title": "Modes d'envoi",
       "single": "Envoyer des fichiers à un destinataire. La sélection sera effacée une fois l'envoi du fichier terminé.",
       "multiple": "Envoyer des fichiers à plusieurs destinataires. La sélection ne sera pas effacée.",
-      "link": "Les destinataires n'ayant pas LocalSend installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
+      "link": "Les destinataires n'ayant pas LocalDrop installé peuvent télécharger les fichiers sélectionnés en ouvrant le lien dans leur navigateur."
     },
     "zoom": {
       "title": "URL"
@@ -460,7 +460,7 @@
   "tray": {
     "@info": "Les directives d'Apple sont très strictes en ce qui concerne le terme \"fermer\".",
     "open": "@:general.open",
-    "close": "Quitter LocalSend",
+    "close": "Quitter LocalDrop",
     "closeWindows": "Fermer"
   },
   "web": {

@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "接受",
     "accepted": "已接受",
@@ -109,7 +109,7 @@
       "minimizeToTray": "關閉嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
       "launchMinimized": "自動啟動成通知圖示",
-      "showInContextMenu": "喺檔案功能表嘅「傳送到」項目顯示 LocalSend",
+      "showInContextMenu": "喺檔案功能表嘅「傳送到」項目顯示 LocalDrop",
       "animations": "動畫"
     },
     "receive": {
@@ -153,7 +153,7 @@
     },
     "other": {
       "title": "其他",
-      "support": "支援 LocalSend",
+      "support": "支援 LocalDrop",
       "donate": "捐款",
       "privacyPolicy": "私隱權政策",
       "termsOfUse": "服務條款"
@@ -181,7 +181,7 @@
   },
   "networkInterfacesPage": {
     "title": "網絡介面",
-    "info": "LocalSend 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。",
+    "info": "LocalDrop 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。",
     "preview": "預覽",
     "whitelist": "白名單",
     "blacklist": "黑名單"
@@ -242,7 +242,7 @@
   "receiveOptionsPage": {
     "title": "@:general.settings",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "（LocalSend 資料夾）",
+    "appDirectory": "（LocalDrop 資料夾）",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "有資料夾存在，所以自動閂咗。"
   },
@@ -294,16 +294,16 @@
     "autoAccept": "自動接受請求",
     "requirePin": "需要密碼",
     "pinHint": "密碼為「{pin}」",
-    "encryptionHint": "LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。",
+    "encryptionHint": "LocalDrop 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。",
     "pendingRequests": "仲有 {n} 個請求未處理"
   },
   "webReceivePage": {
     "title": "用 link 接收"
   },
   "aboutPage": {
-    "title": "關於 LocalSend",
+    "title": "關於 LocalDrop",
     "description": [
-      "LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
+      "LocalDrop 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
       "呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。"
     ],
     "author": "作者",
@@ -313,7 +313,7 @@
   },
   "donationPage": {
     "title": "@:settingsTab.other.donate",
-    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
+    "info": "LocalDrop 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
     "donate": "捐 {amount}",
     "thanks": "多謝支持！",
     "restore": "還原 app 內購買"
@@ -401,7 +401,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "喺冇權掃描區域網絡嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
+      "description": "喺冇權掃描區域網絡嘅情況下 LocalDrop 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
       "gotoSettings": "開啟系統設定"
     },
     "messageInput": {
@@ -450,7 +450,7 @@
       "title": "@:sendTab.sendMode",
       "single": "淨係 send 畀一部裝置，傳輸完成後會清除揀選項目。",
       "multiple": "一次過 send 畀多部裝置，揀選項目會一路保留。",
-      "link": "冇裝 LocalSend 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。"
+      "link": "冇裝 LocalDrop 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。"
     },
     "zoom": {
       "title": "網址"
@@ -463,7 +463,7 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "退出 LocalSend",
+    "close": "退出 LocalDrop",
     "closeWindows": "離開"
   },
   "web": {

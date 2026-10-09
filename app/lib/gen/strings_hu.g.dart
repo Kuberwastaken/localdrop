@@ -40,7 +40,7 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$hu general = _Translations$general$hu._(_root);
   @override
@@ -289,7 +289,7 @@ class _Translations$networkInterfacesPage$hu extends Translations$networkInterfa
   String get title => 'Hálózati interfészek';
   @override
   String get info =>
-      'Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.';
+      'Alapértelmezésként a LocalDrop az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.';
   @override
   String get preview => 'Előnézet';
   @override
@@ -414,7 +414,7 @@ class _Translations$receiveOptionsPage$hu extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend mappa)';
+  String get appDirectory => '(LocalDrop mappa)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -493,7 +493,7 @@ class _Translations$webSharePage$hu extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'A PIN kód "${pin}"';
   @override
-  String get encryptionHint => 'A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
+  String get encryptionHint => 'A LocalDrop a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.';
   @override
   String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
@@ -517,10 +517,10 @@ class _Translations$aboutPage$hu extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'A LocalSend';
+  String get title => 'A LocalDrop';
   @override
   List<String> get description => [
-    'A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.',
+    'A LocalDrop egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.',
     'Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon.',
   ];
   @override
@@ -544,7 +544,7 @@ class _Translations$donationPage$hu extends Translations$donationPage$en {
   String get title => 'Adomány';
   @override
   String get info =>
-      'A LocalSend ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.';
+      'A LocalDrop ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.';
   @override
   String donate({required Object amount}) => 'Adomány ${amount}';
   @override
@@ -871,7 +871,7 @@ class _Translations$settingsTab$general$hu extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'Auto. indítás: Kis méretben';
   @override
-  String get showInContextMenu => 'A LocalSend megjelenítése a helyi menüben';
+  String get showInContextMenu => 'A LocalDrop megjelenítése a helyi menüben';
   @override
   String get animations => 'Animációk';
 }
@@ -973,7 +973,7 @@ class _Translations$settingsTab$other$hu extends Translations$settingsTab$other$
   @override
   String get title => 'Egyéb';
   @override
-  String get support => 'LocalSend támogatás';
+  String get support => 'LocalDrop támogatás';
   @override
   String get donate => 'Adomány';
   @override
@@ -1330,7 +1330,7 @@ class _Translations$dialogs$localNetworkUnauthorized$hu extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'A LocalSend nem találhat más eszközöket a helyi hálózat vizsgálatára vonatkozó engedély nélkül. Adja meg ezt az engedélyt a beállításokban.';
+      'A LocalDrop nem találhat más eszközöket a helyi hálózat vizsgálatára vonatkozó engedély nélkül. Adja meg ezt az engedélyt a beállításokban.';
   @override
   String get gotoSettings => 'Beállítások';
 }
@@ -1473,7 +1473,7 @@ class _Translations$dialogs$sendModeHelp$hu extends Translations$dialogs$sendMod
   String get multiple => 'Fájlokat küld több címzettnek. A kijelölés nem törlődik.';
   @override
   String get link =>
-      'Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben.';
+      'Azok a címzettek, akiknél nincs telepítve a LocalDrop, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben.';
 }
 
 // Path: dialogs.zoom

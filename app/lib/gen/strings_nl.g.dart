@@ -40,7 +40,7 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$nl general = _Translations$general$nl._(_root);
   @override
@@ -289,7 +289,7 @@ class _Translations$networkInterfacesPage$nl extends Translations$networkInterfa
   String get title => 'Netwerkinterfaces';
   @override
   String get info =>
-      'Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.';
+      'Standaard gebruikt LocalDrop alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.';
   @override
   String get preview => 'Voorbeeld';
   @override
@@ -414,7 +414,7 @@ class _Translations$receiveOptionsPage$nl extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend-map)';
+  String get appDirectory => '(LocalDrop-map)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -493,7 +493,7 @@ class _Translations$webSharePage$nl extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'De PINcode is "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.';
+  String get encryptionHint => 'LocalDrop maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.';
   @override
   String pendingRequests({required Object n}) => 'Openstaande verzoeken: ${n}';
 }
@@ -517,10 +517,10 @@ class _Translations$aboutPage$nl extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'Over LocalSend';
+  String get title => 'Over LocalDrop';
   @override
   List<String> get description => [
-    'LocalSend is een gratis en opensource app waarmee je veilig bestanden en berichten met apparaten op je lokale netwerk kunt delen, zonder internetverbinding.',
+    'LocalDrop is een gratis en opensource app waarmee je veilig bestanden en berichten met apparaten op je lokale netwerk kunt delen, zonder internetverbinding.',
     'De app is beschikbaar voor Android, iOS, macOS, Windows en Linux. Je vindt alle downloadopties op de officiële website.',
   ];
   @override
@@ -544,7 +544,7 @@ class _Translations$donationPage$nl extends Translations$donationPage$en {
   String get title => 'Doneren';
   @override
   String get info =>
-      'LocalSend is gratis, opensource en advertentievrij. Als je de app graag gebruikt, kun je de ontwikkeling steunen middels een donatie.';
+      'LocalDrop is gratis, opensource en advertentievrij. Als je de app graag gebruikt, kun je de ontwikkeling steunen middels een donatie.';
   @override
   String donate({required Object amount}) => '${amount} doneren';
   @override
@@ -660,7 +660,7 @@ class _Translations$tray$nl extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'LocalSend afsluiten';
+  String get close => 'LocalDrop afsluiten';
   @override
   String get closeWindows => 'Sluiten';
 }
@@ -871,7 +871,7 @@ class _Translations$settingsTab$general$nl extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'Automatisch starten: verborgen';
   @override
-  String get showInContextMenu => 'LocalSend weergeven in contextmenu';
+  String get showInContextMenu => 'LocalDrop weergeven in contextmenu';
   @override
   String get animations => 'Animaties';
 }
@@ -973,7 +973,7 @@ class _Translations$settingsTab$other$nl extends Translations$settingsTab$other$
   @override
   String get title => 'Overig';
   @override
-  String get support => 'LocalSend steunen';
+  String get support => 'LocalDrop steunen';
   @override
   String get donate => 'Doneren';
   @override
@@ -1331,7 +1331,7 @@ class _Translations$dialogs$localNetworkUnauthorized$nl extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend heeft rechten nodig om op het lokale netwerk naar andere apparaten te kunnen zoeken. Verleen deze rechten in de instellingen.';
+      'LocalDrop heeft rechten nodig om op het lokale netwerk naar andere apparaten te kunnen zoeken. Verleen deze rechten in de instellingen.';
   @override
   String get gotoSettings => 'Instellingen';
 }
@@ -1474,7 +1474,7 @@ class _Translations$dialogs$sendModeHelp$nl extends Translations$dialogs$sendMod
   @override
   String get multiple => 'Bestanden naar meerdere ontvangers verzenden. De selectie blijft na de bestandsoverdracht behouden.';
   @override
-  String get link => 'Ontvangers die LocalSend niet hebben geïnstalleerd kunnen de bestanden downloaden door de link in hun browser te openen.';
+  String get link => 'Ontvangers die LocalDrop niet hebben geïnstalleerd kunnen de bestanden downloaden door de link in hun browser te openen.';
 }
 
 // Path: dialogs.zoom

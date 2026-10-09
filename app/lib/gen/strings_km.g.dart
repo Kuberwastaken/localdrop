@@ -40,7 +40,7 @@ class TranslationsKm extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$km general = _Translations$general$km._(_root);
   @override
@@ -291,7 +291,7 @@ class _Translations$networkInterfacesPage$km extends Translations$networkInterfa
   String get title => 'ចំណុចប្រទាក់បណ្តាញ';
   @override
   String get info =>
-      'តាមលំនាំដើម LocalSend ប្រើចំណុចប្រទាក់បណ្តាញដែលមានទាំងអស់។ អ្នកអាចដកបណ្តាញដែលមិនចង់បានចេញនៅទីនេះ។ អ្នកត្រូវចាប់ផ្តើមម៉ាស៊ីនមេឡើងវិញ ដើម្បីអនុវត្តការផ្លាស់ប្តូរ។';
+      'តាមលំនាំដើម LocalDrop ប្រើចំណុចប្រទាក់បណ្តាញដែលមានទាំងអស់។ អ្នកអាចដកបណ្តាញដែលមិនចង់បានចេញនៅទីនេះ។ អ្នកត្រូវចាប់ផ្តើមម៉ាស៊ីនមេឡើងវិញ ដើម្បីអនុវត្តការផ្លាស់ប្តូរ។';
   @override
   String get preview => 'មើលជាមុន';
   @override
@@ -416,7 +416,7 @@ class _Translations$receiveOptionsPage$km extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(ថតឯកសារ LocalSend)';
+  String get appDirectory => '(ថតឯកសារ LocalDrop)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -495,7 +495,7 @@ class _Translations$webSharePage$km extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'លេខកូដគឺ "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
+  String get encryptionHint => 'LocalDrop ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
   @override
   String pendingRequests({required Object n}) => 'សំណើដែលកំពុងរង់ចាំ: ${n}';
 }
@@ -519,11 +519,11 @@ class _Translations$aboutPage$km extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'អំពី LocalSend';
+  String get title => 'អំពី LocalDrop';
   @override
   List<String> get description => [
-    'LocalSend គឺជាកម្មវិធីដែលប្រើដោយឥតគិតថ្លៃ និងបើកចំហនូវប្រភពកូដ ដែលអនុញ្ញាតឱ្យអ្នកអាចចែករំលែកឯកសារ និងសារដោយសុវត្ថិភាពជាមួយនឹងឧបករណ៍ដែលនៅជិតៗដែលនៅលើបណ្តាញមូលដ្ឋានរួមគ្នាដោយមិនចាំបាច់ភ្ជាប់អ៊ីនធឺណិត។',
-    'កម្មវិធីនេះគឺអាចដំណើរការនៅលើគ្រប់ប្រព័ន្ធប្រតិបត្តិការទាំងអស់រួមមានដូចជា Android, iOS, macOS, Windows និង Linux ។ អ្នកអាចស្វែងរក និងទាញយកបានច្រើនវិធីសាស្ត្រតាមរយៈគេហទំព័រផ្លូវការរបស់ LocalSend ។',
+    'LocalDrop គឺជាកម្មវិធីដែលប្រើដោយឥតគិតថ្លៃ និងបើកចំហនូវប្រភពកូដ ដែលអនុញ្ញាតឱ្យអ្នកអាចចែករំលែកឯកសារ និងសារដោយសុវត្ថិភាពជាមួយនឹងឧបករណ៍ដែលនៅជិតៗដែលនៅលើបណ្តាញមូលដ្ឋានរួមគ្នាដោយមិនចាំបាច់ភ្ជាប់អ៊ីនធឺណិត។',
+    'កម្មវិធីនេះគឺអាចដំណើរការនៅលើគ្រប់ប្រព័ន្ធប្រតិបត្តិការទាំងអស់រួមមានដូចជា Android, iOS, macOS, Windows និង Linux ។ អ្នកអាចស្វែងរក និងទាញយកបានច្រើនវិធីសាស្ត្រតាមរយៈគេហទំព័រផ្លូវការរបស់ LocalDrop ។',
   ];
   @override
   String get author => 'ម្ចាស់កម្មសិទ្ធ';
@@ -546,7 +546,7 @@ class _Translations$donationPage$km extends Translations$donationPage$en {
   String get title => 'ការឧបត្ថម្ភ';
   @override
   String get info =>
-      'LocalSend ជាកម្មវិធីដែលឥតគិតថ្លៃ, បើកបង្ហាញប្រភពកូដជាសាធារណៈ និងមិនមានការបង្ហាញនូវផ្ទាំងពាណិជ្ជកម្មរំខានឡើយ។ ប្រសិនបើអ្នកពេញចិត្តកម្មវិធីនេះ​ និងចង់ជួយពួកយើង, អ្នកអាចចូលរួមលើកស្ទួយការអភិវឌ្ឍន៍កម្មវិធីនេះជាមួយពួកយើងតាមរយៈការឧបត្ថម្ភជាថវិកា។';
+      'LocalDrop ជាកម្មវិធីដែលឥតគិតថ្លៃ, បើកបង្ហាញប្រភពកូដជាសាធារណៈ និងមិនមានការបង្ហាញនូវផ្ទាំងពាណិជ្ជកម្មរំខានឡើយ។ ប្រសិនបើអ្នកពេញចិត្តកម្មវិធីនេះ​ និងចង់ជួយពួកយើង, អ្នកអាចចូលរួមលើកស្ទួយការអភិវឌ្ឍន៍កម្មវិធីនេះជាមួយពួកយើងតាមរយៈការឧបត្ថម្ភជាថវិកា។';
   @override
   String donate({required Object amount}) => 'ឧបត្ថម្ភចំនួន ${amount}';
   @override
@@ -745,7 +745,7 @@ class _Translations$tray$km extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'ចាកចេញពីកម្មវិធី LocalSend';
+  String get close => 'ចាកចេញពីកម្មវិធី LocalDrop';
   @override
   String get closeWindows => 'ចាកចេញ';
 }
@@ -956,7 +956,7 @@ class _Translations$settingsTab$general$km extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់';
   @override
-  String get showInContextMenu => 'បង្ហាញ LocalSend in នៅលើរបារម៉ឺនុយ';
+  String get showInContextMenu => 'បង្ហាញ LocalDrop in នៅលើរបារម៉ឺនុយ';
   @override
   String get animations => 'ចលនារស់រវើក';
 }
@@ -1058,7 +1058,7 @@ class _Translations$settingsTab$other$km extends Translations$settingsTab$other$
   @override
   String get title => 'ផ្សេងៗ';
   @override
-  String get support => 'ជួយគាំទ្រ LocalSend';
+  String get support => 'ជួយគាំទ្រ LocalDrop';
   @override
   String get donate => 'ការឧបត្ថម្ភ';
   @override
@@ -1415,7 +1415,7 @@ class _Translations$dialogs$localNetworkUnauthorized$km extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend មិន​អាច​រក​ឃើញ​ឧបករណ៍​ផ្សេង​ទៀត​ដោយ​មិន​មាន​ការ​អនុញ្ញាត​ក្នុង​ការ​ស្កែន​បណ្តាញរួមគ្នា​ទេ។ សូមផ្តល់ការអនុញ្ញាតនេះនៅក្នុងការកំណត់។';
+      'LocalDrop មិន​អាច​រក​ឃើញ​ឧបករណ៍​ផ្សេង​ទៀត​ដោយ​មិន​មាន​ការ​អនុញ្ញាត​ក្នុង​ការ​ស្កែន​បណ្តាញរួមគ្នា​ទេ។ សូមផ្តល់ការអនុញ្ញាតនេះនៅក្នុងការកំណត់។';
   @override
   String get gotoSettings => 'ការកំណត់';
 }
@@ -1558,7 +1558,7 @@ class _Translations$dialogs$sendModeHelp$km extends Translations$dialogs$sendMod
   @override
   String get multiple => 'ផ្ញើឯកសារទៅអ្នកទទួលច្រើននាក់។ ការជ្រើសរើសនឹងមិនត្រូវបានសម្អាតទេ។';
   @override
-  String get link => 'អ្នកទទួលដែលមិនបានដំឡើង LocalSend អាចទាញយកឯកសារដែលបានជ្រើសរើសដោយបើកតំណនៅក្នុងកម្មវិធី browser របស់ពួកគេ។';
+  String get link => 'អ្នកទទួលដែលមិនបានដំឡើង LocalDrop អាចទាញយកឯកសារដែលបានជ្រើសរើសដោយបើកតំណនៅក្នុងកម្មវិធី browser របស់ពួកគេ។';
 }
 
 // Path: dialogs.zoom

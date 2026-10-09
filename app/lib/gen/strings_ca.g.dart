@@ -40,7 +40,7 @@ class TranslationsCa extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$ca general = _Translations$general$ca._(_root);
   @override
@@ -292,7 +292,7 @@ class _Translations$networkInterfacesPage$ca extends Translations$networkInterfa
   String get title => 'Interfícies de xarxa';
   @override
   String get info =>
-      'De manera predefinida, el LocalSend utilitza totes les interfícies de xarxa disponibles. Podeu excloure les xarxes no desitjades aquí. Cal que reinicieu el servidor per a aplicar els canvis.';
+      'De manera predefinida, el LocalDrop utilitza totes les interfícies de xarxa disponibles. Podeu excloure les xarxes no desitjades aquí. Cal que reinicieu el servidor per a aplicar els canvis.';
   @override
   String get preview => 'Previsualitza';
   @override
@@ -417,7 +417,7 @@ class _Translations$receiveOptionsPage$ca extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(Carpeta LocalSend)';
+  String get appDirectory => '(Carpeta LocalDrop)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -496,7 +496,7 @@ class _Translations$webSharePage$ca extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'El PIN és «${pin}»';
   @override
-  String get encryptionHint => 'El LocalSend utilitza un certificat auto-signat. Cal que l\'accepteu al navegador.';
+  String get encryptionHint => 'El LocalDrop utilitza un certificat auto-signat. Cal que l\'accepteu al navegador.';
   @override
   String pendingRequests({required Object n}) => 'Peticions pendents: ${n}';
 }
@@ -520,10 +520,10 @@ class _Translations$aboutPage$ca extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'Quant al LocalSend';
+  String get title => 'Quant al LocalDrop';
   @override
   List<String> get description => [
-    'El LocalSend és una aplicació gratuïta i de codi obert que us permet compartir fitxers i missatges de manera segura amb dispositius propers a la vostra xarxa local sense necessitat de connexió a Internet.',
+    'El LocalDrop és una aplicació gratuïta i de codi obert que us permet compartir fitxers i missatges de manera segura amb dispositius propers a la vostra xarxa local sense necessitat de connexió a Internet.',
     'Aquesta aplicació està disponible per a Android, iOS, macOS, Windows i Linux. Podeu trobar totes les opcions de baixada a la pàgina d\'inici oficial.',
   ];
   @override
@@ -547,7 +547,7 @@ class _Translations$donationPage$ca extends Translations$donationPage$en {
   String get title => 'Donació';
   @override
   String get info =>
-      'El LocalSend és gratuït, de codi obert i sense anuncis. Si us agrada l\'aplicació, podeu donar suport al desenvolupament amb una donació.';
+      'El LocalDrop és gratuït, de codi obert i sense anuncis. Si us agrada l\'aplicació, podeu donar suport al desenvolupament amb una donació.';
   @override
   String donate({required Object amount}) => 'Donació: ${amount}';
   @override
@@ -746,7 +746,7 @@ class _Translations$tray$ca extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Surt del LocalSend';
+  String get close => 'Surt del LocalDrop';
   @override
   String get closeWindows => 'Surt';
 }
@@ -957,7 +957,7 @@ class _Translations$settingsTab$general$ca extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'Inici automàtic: Inici minimitzat';
   @override
-  String get showInContextMenu => 'Mostra el LocalSend al menú contextual';
+  String get showInContextMenu => 'Mostra el LocalDrop al menú contextual';
   @override
   String get animations => 'Animacions';
 }
@@ -1059,7 +1059,7 @@ class _Translations$settingsTab$other$ca extends Translations$settingsTab$other$
   @override
   String get title => 'Altres';
   @override
-  String get support => 'Doneu suport al LocalSend';
+  String get support => 'Doneu suport al LocalDrop';
   @override
   String get donate => 'Donació';
   @override
@@ -1415,7 +1415,7 @@ class _Translations$dialogs$localNetworkUnauthorized$ca extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'El LocalSend no pot trobar altres dispositius sense tenir permís per a escanejar la xarxa local. Concediu aquest permís a la configuració.';
+      'El LocalDrop no pot trobar altres dispositius sense tenir permís per a escanejar la xarxa local. Concediu aquest permís a la configuració.';
   @override
   String get gotoSettings => 'Configuració';
 }
@@ -1559,7 +1559,7 @@ class _Translations$dialogs$sendModeHelp$ca extends Translations$dialogs$sendMod
   String get multiple => 'Envia fitxers a diversos destinataris. La selecció no s\'esborrarà en finalitzar la trasferència.';
   @override
   String get link =>
-      'Els destinataris que no tinguin el LocalSend instal·lat poden baixar els fitxers seleccionats obrint l\'enllaç al seu navegador.';
+      'Els destinataris que no tinguin el LocalDrop instal·lat poden baixar els fitxers seleccionats obrint l\'enllaç al seu navegador.';
 }
 
 // Path: dialogs.zoom

@@ -198,7 +198,7 @@ fn parse_timestamp(value: &str) -> Option<std::time::SystemTime> {
     }
 }
 
-/// Formats a timestamp as RFC 3339 with nanosecond precision.
+/// Formats a timestamp as RFC 3339 with the precision retained by SystemTime.
 #[cfg(feature = "http")]
 fn format_timestamp(value: std::time::SystemTime) -> Option<String> {
     match time::OffsetDateTime::from(value).format(&time::format_description::well_known::Rfc3339) {
@@ -258,6 +258,11 @@ mod tests {
     fn formats_nanosecond_timestamp() {
         let time = SystemTime::UNIX_EPOCH + Duration::from_nanos(123_456_789);
         let formatted = format_timestamp(time).unwrap();
+        // Windows SystemTime is backed by FILETIME's 100 ns ticks, so it has
+        // already truncated the input before it reaches format_timestamp.
+        #[cfg(windows)]
+        assert_eq!(formatted, "1970-01-01T00:00:00.1234567Z");
+        #[cfg(not(windows))]
         assert_eq!(formatted, "1970-01-01T00:00:00.123456789Z");
         assert_eq!(parse_timestamp(&formatted), Some(time));
     }

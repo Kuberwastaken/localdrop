@@ -99,7 +99,7 @@ impl PairedDevices {
                     }
                     version => anyhow::bail!(
                         "{} has version {version}, but this build supports only version {PAIRED_DEVICES_VERSION}. \
-                         Was it written by a newer LocalSend CLI?",
+                         Was it written by a newer LocalDrop CLI?",
                         path.display()
                     ),
                 }
@@ -195,7 +195,7 @@ mod tests {
     /// id parallel `cargo test` processes).
     fn temp_dir(name: &str) -> PathBuf {
         let dir = std::env::temp_dir().join(format!(
-            "localsend-cli-paired-{name}-{}",
+            "localdrop-cli-paired-{name}-{}",
             std::process::id()
         ));
         let _ = std::fs::remove_dir_all(&dir);

@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "اقبل",
     "accepted": "قُبلت",
@@ -109,7 +109,7 @@
       "minimizeToTray": "إنهاء : أخفاء في شريط المهام",
       "launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
       "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا",
-      "showInContextMenu": "إظهار LocalSend في قائمة السياق",
+      "showInContextMenu": "إظهار LocalDrop في قائمة السياق",
       "animations": "الرسوم المتحركة"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "أخرى",
-      "support": "دعم LocalSend",
+      "support": "دعم LocalDrop",
       "donate": "تبرّع",
       "privacyPolicy": "سياسة الخصوصيّة",
       "termsOfUse": "شروط الاستخدام"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "واجهات الشبكة",
-    "info": "بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
+    "info": "بشكل افتراضي، يستخدم LocalDrop جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
     "preview": "معاينة",
     "whitelist": "القائمة البيضاء",
     "blacklist": "القائمة السوداء"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "خيارات",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(مجلد LocalSend)",
+    "appDirectory": "(مجلد LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "تم إيقافه تلقائيًا لوجود مجلدات."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "قبول الطلبات تلقائيًا",
     "requirePin": "يتطلب رمز PIN",
     "pinHint": "رمز PIN هو \"{pin}\"",
-    "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
+    "encryptionHint": "يستخدم تطبيق LocalDrop شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
   },
   "webReceivePage": {
     "title": "استلم من خلال رابط"
   },
   "aboutPage": {
-    "title": "عن LocalSend",
+    "title": "عن LocalDrop",
     "description": [
-      "LocalSend هو تطبيق مجاني مفتوح المصدر يسمح لك بمشاركة الملفات والرسائل بشكل آمن مع الأجهزة القريبة عبر شبكتك المحلية دون الحاجة إلى اتصال بالإنترنت.",
+      "LocalDrop هو تطبيق مجاني مفتوح المصدر يسمح لك بمشاركة الملفات والرسائل بشكل آمن مع الأجهزة القريبة عبر شبكتك المحلية دون الحاجة إلى اتصال بالإنترنت.",
       "هذا التطبيق متاح على أنظمة Android وiOS وmacOS وWindows وLinux. يمكنك العثور على جميع خيارات التنزيل على الصفحة الرئيسية الرسمية."
     ],
     "author": "المؤلف",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "تبرّع",
-    "info": "LocalSend مجاني ومفتوح المصدر وبدون أي إعلانات. إذا أعجبك التطبيق، يمكنك دعم التطوير بالتبرع.",
+    "info": "LocalDrop مجاني ومفتوح المصدر وبدون أي إعلانات. إذا أعجبك التطبيق، يمكنك دعم التطوير بالتبرع.",
     "donate": "تبرّع {amount}",
     "thanks": "شكراً جزيلاً!",
     "restore": "استعادة شراء"
@@ -470,7 +470,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يُرجى منح هذا الإذن في الإعدادات.",
+      "description": "لا يمكن ل LocalDrop العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يُرجى منح هذا الإذن في الإعدادات.",
       "gotoSettings": "الإعدادات"
     },
     "messageInput": {
@@ -517,7 +517,7 @@
       "title": "أوضاع الإرسال",
       "single": "يقوم بإرسال الملفات إلى مستلم واحد. سيتم مسح الاختيار بعد انتهاء نقل الملف.",
       "multiple": "يرسل الملفات إلى عدة مستلمين. لن يتم مسح التحديد بعد الانتهاء من نقل الملفات.",
-      "link": "يمكن للمستلمين الذين لا يحتوون على LocalSend تنزيل الملفات المحددة عن طريق فتح الرابط في متصفحهم."
+      "link": "يمكن للمستلمين الذين لا يحتوون على LocalDrop تنزيل الملفات المحددة عن طريق فتح الرابط في متصفحهم."
     },
     "zoom": {
       "title": "عنوان URL"
@@ -530,7 +530,7 @@
   "tray": {
     "@info": "إرشادات Apple صارمة للغاية بشأن صياغة 'الإغلاق'.",
     "open": "@:general.open",
-    "close": "أنهِ LocalSend",
+    "close": "أنهِ LocalDrop",
     "closeWindows": "اخرج"
   },
   "web": {

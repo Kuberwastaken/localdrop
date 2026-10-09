@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Prihvati",
     "accepted": "Prihvaćeno",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Minimiziraj na sistemsku traku/traku menija prilikom zatvaranja",
       "launchAtStartup": "Automatski pokreni nakon prijave",
       "launchMinimized": "Automatsko pokretanje: Pokretanje skriveno",
-      "showInContextMenu": "Prikaži LocalSend u kontekstualnom meniju",
+      "showInContextMenu": "Prikaži LocalDrop u kontekstualnom meniju",
       "animations": "Animacije"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Ostalo",
-      "support": "Podržite LocalSend",
+      "support": "Podržite LocalDrop",
       "donate": "Doniraj",
       "privacyPolicy": "Politika privatnosti",
       "termsOfUse": "Uslovi korišćenja"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Mrežni interfejsi",
-    "info": "Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.",
+    "info": "Podrazumevano, LocalDrop koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.",
     "preview": "Pregled",
     "whitelist": "Bela lista",
     "blacklist": "Crna lista"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Opcije",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(LocalDrop folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Automatski isključeno jer postoje folderi."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Automatski prihvati zahteve",
     "requirePin": "Zahtevaj PIN",
     "pinHint": "PIN je „{pin}“",
-    "encryptionHint": "LocalSend koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.",
+    "encryptionHint": "LocalDrop koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.",
     "pendingRequests": "Zahtevi na čekanju: {n}"
   },
   "webReceivePage": {
     "title": "Primi putem linka"
   },
   "aboutPage": {
-    "title": "O LocalSend-u",
+    "title": "O LocalDrop-u",
     "description": [
-      "LocalSend je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.",
+      "LocalDrop je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.",
       "Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za preuzimanje na zvaničnoj početnoj stranici."
     ],
     "author": "Autor",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Donacija",
-    "info": "LocalSend je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.",
+    "info": "LocalDrop je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.",
     "donate": "Doniraj {amount}",
     "thanks": "Hvala vam puno!",
     "restore": "Vrati kupovinu"
@@ -470,7 +470,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.",
+      "description": "LocalDrop ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.",
       "gotoSettings": "Podešavanja"
     },
     "messageInput": {
@@ -517,7 +517,7 @@
       "title": "Režimi slanja",
       "single": "Slanje fajlova jednom primaocu. Izbor će biti očišćen nakon završenog prenosa fajlova.",
       "multiple": "Slanje fajlova više primalaca. Izbor neće biti očišćen nakon završenog prenosa fajlova.",
-      "link": "Primaoci koji nemaju instaliran LocalSend mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču."
+      "link": "Primaoci koji nemaju instaliran LocalDrop mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču."
     },
     "zoom": {
       "title": "URL"
@@ -530,7 +530,7 @@
   "tray": {
     "@info": "Apple smernice su veoma stroge u vezi sa „sličnim“ formulacijama.",
     "open": "@:general.open",
-    "close": "Napusti LocalSend",
+    "close": "Napusti LocalDrop",
     "closeWindows": "Izađi"
   },
   "web": {

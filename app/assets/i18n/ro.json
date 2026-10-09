@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Acceptă",
     "accepted": "Acceptat",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Minimizează în Bara de Meniuri/Tray la închidere",
       "launchAtStartup": "Pornire automată după autentificare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
-      "showInContextMenu": "Afișează LocalSend în meniul contextual",
+      "showInContextMenu": "Afișează LocalDrop în meniul contextual",
       "animations": "Animații"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Altele",
-      "support": "Susține LocalSend",
+      "support": "Susține LocalDrop",
       "donate": "Donează",
       "privacyPolicy": "Politica de confidențialitate",
       "termsOfUse": "Termeni de utilizare"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Interfețe de rețea",
-    "info": "În mod implicit, LocalSend folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.",
+    "info": "În mod implicit, LocalDrop folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.",
     "preview": "Previzualizare",
     "whitelist": "Lista albă",
     "blacklist": "Lista neagră"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Opțiuni",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Dosarul LocalSend)",
+    "appDirectory": "(Dosarul LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dezactivat automat deoarece există foldere."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Acceptă automat cererile",
     "requirePin": "Solicită PIN",
     "pinHint": "PIN-ul este \"{pin}\"",
-    "encryptionHint": "LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.",
+    "encryptionHint": "LocalDrop folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.",
     "pendingRequests": "Cereri în așteptare: {n}"
   },
   "webReceivePage": {
     "title": "Primește prin link"
   },
   "aboutPage": {
-    "title": "Despre LocalSend",
+    "title": "Despre LocalDrop",
     "description": [
-      "LocalSend este o aplicație gratuită și open-source care îți permite să partajezi în siguranță fișiere și mesaje cu dispozitivele din apropiere prin rețeaua ta locală, fără a avea nevoie de o conexiune la internet.",
+      "LocalDrop este o aplicație gratuită și open-source care îți permite să partajezi în siguranță fișiere și mesaje cu dispozitivele din apropiere prin rețeaua ta locală, fără a avea nevoie de o conexiune la internet.",
       "Această aplicație este disponibilă pe Android, iOS, macOS, Windows și Linux. Poți găsi toate opțiunile de descărcare pe pagina oficială."
     ],
     "author": "Autor",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Donează",
-    "info": "LocalSend este gratuit, open-source și fără reclame. Dacă îți place aplicația, poți susține dezvoltarea cu o donație.",
+    "info": "LocalDrop este gratuit, open-source și fără reclame. Dacă îți place aplicația, poți susține dezvoltarea cu o donație.",
     "donate": "Donează {amount}",
     "thanks": "Îți mulțumim foarte mult!",
     "restore": "Restabilește achiziția"
@@ -468,7 +468,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Acordă această permisiune în setări.",
+      "description": "LocalDrop nu poate găsi alte dispozitive fără permisiunea de a scana rețeaua locală. Acordă această permisiune în setări.",
       "gotoSettings": "Setări"
     },
     "messageInput": {
@@ -515,7 +515,7 @@
       "title": "Moduri de trimitere",
       "single": "Trimite fișiere unui singur destinatar. Selecția va fi golită după ce transferul este finalizat.",
       "multiple": "Trimite fișiere la mai mulți destinatari. Selecția nu va fi ștearsă după transferul de fișiere terminate.",
-      "link": "Destinatarii care nu au LocalSend instalat pot descărca fișierele selectate prin deschiderea linkului în browserul lor."
+      "link": "Destinatarii care nu au LocalDrop instalat pot descărca fișierele selectate prin deschiderea linkului în browserul lor."
     },
     "zoom": {
       "title": "URL"
@@ -528,7 +528,7 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Închide LocalSend",
+    "close": "Închide LocalDrop",
     "closeWindows": "Ieșire"
   },
   "web": {

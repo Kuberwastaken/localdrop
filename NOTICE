@@ -1,0 +1,25 @@
+LocalDrop
+Copyright 2026 Kuberwastaken and LocalDrop contributors
+
+LocalDrop is an independent fork of LocalSend, licensed under Apache-2.0.
+LocalSend copyright 2022-2026 Tien Do Nam and contributors.
+Upstream: https://github.com/localsend/localsend
+Base commit: c1ce322fb3acf08e44f329b8b7208b8b0d91e244
+The original LICENSE and source attribution are preserved.
+
+LocalDrop modifications include the application name and identifiers,
+the original LocalDrop icon, a Linux AirDrop process bridge and user
+interface, and fork-specific release automation and documentation.
+
+AirDrop integration invokes separately installed programs. Their source
+repositories, pinned revisions and licenses are documented under
+support/airdrop. They retain their own licenses and attribution:
+  omdrop-plugin: https://github.com/brentkearney/omdrop-plugin (MIT)
+  omdrop-awdl: https://github.com/brentkearney/omdrop-awdl (GPL-2.0-only)
+  OWL: https://github.com/jedbillyb/owl (GPL-3.0-or-later)
+  radiotap-library: https://github.com/radiotap/radiotap-library (ISC)
+  omdrop-owl: https://github.com/t4t5/omdrop-owl
+
+LocalDrop is not affiliated with LocalSend or Apple. AirDrop is an Apple
+trademark. The upstream radio implementation is experimental and its
+hardware-specific limitations apply to LocalDrop's AirDrop feature.

@@ -1,10 +1,10 @@
 name: localsend_app
-description: An open source cross-platform alternative to AirDrop
-homepage: https://localsend.org/
+description: Local network file sharing with a Linux AirDrop bridge
+homepage: https://github.com/Kuberwastaken/localdrop
 publish_to: "none"
 resolution: workspace
 
-version: 1.18.2+64
+version: 1.0.0+1
 
 environment:
   flutter: ^3.41.0

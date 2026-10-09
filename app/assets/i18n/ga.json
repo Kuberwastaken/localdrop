@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Glac",
     "accepted": "Glactha",
@@ -107,7 +107,7 @@
       "minimizeToTray": "Íoslaghdaigh go dtí an Tráidire Córais/Barra Roghchláir agus é á dhúnadh",
       "launchAtStartup": "Uaththosú tar éis logáil isteach",
       "launchMinimized": "Uaththosú: Tosaigh i bhfolach",
-      "showInContextMenu": "Taispeáin LocalSend sa roghchlár comhthéacs",
+      "showInContextMenu": "Taispeáin LocalDrop sa roghchlár comhthéacs",
       "animations": "Beochana"
     },
     "receive": {
@@ -148,7 +148,7 @@
     },
     "other": {
       "title": "Eile",
-      "support": "Tacaigh le LocalSend",
+      "support": "Tacaigh le LocalDrop",
       "donate": "Tabhair Síntiús",
       "privacyPolicy": "Polasaí Príobháideachais",
       "termsOfUse": "Téarmaí Úsáide"
@@ -176,7 +176,7 @@
   },
   "networkInterfacesPage": {
     "title": "Comhéadain Líonra",
-    "info": "De réir réamhshocraithe, úsáideann LocalSend na comhéadain líonra go léir atá ar fáil. Is féidir leat líonraí nach dteastaíonn a eisiamh anseo. Ní mór duit an freastalaí a atosú chun na hathruithe a chur i bhfeidhm.",
+    "info": "De réir réamhshocraithe, úsáideann LocalDrop na comhéadain líonra go léir atá ar fáil. Is féidir leat líonraí nach dteastaíonn a eisiamh anseo. Ní mór duit an freastalaí a atosú chun na hathruithe a chur i bhfeidhm.",
     "preview": "Réamhamharc",
     "whitelist": "Liosta bán",
     "blacklist": "Liosta Dubh"
@@ -214,7 +214,7 @@
   "receiveOptionsPage": {
     "title": "Roghanna",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Fillteán LocalSend)",
+    "appDirectory": "(Fillteán LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Múchta go huathoibríoch mar go bhfuil fillteáin ann."
   },
@@ -255,13 +255,13 @@
     "autoAccept": "Glac le hiarratais go huathoibríoch",
     "requirePin": "Éiligh UAP",
     "pinHint": "Is é an UAP ná \"{pin}\"",
-    "encryptionHint": "Úsáideann LocalSend teastas féinshínithe. Ní mór duit glacadh leis i do bhrabhsálaí.",
+    "encryptionHint": "Úsáideann LocalDrop teastas féinshínithe. Ní mór duit glacadh leis i do bhrabhsálaí.",
     "pendingRequests": "Iarratais ar feitheamh: {n}"
   },
   "aboutPage": {
-    "title": "Maidir le LocalSend",
+    "title": "Maidir le LocalDrop",
     "description": [
-      "Is aip foinse oscailte saor in aisce é LocalSend a ligeann duit comhaid agus teachtaireachtaí a roinnt go slán le gléasanna in aice láimhe thar do líonra áitiúil gan nasc idirlín a bheith ag teastáil.",
+      "Is aip foinse oscailte saor in aisce é LocalDrop a ligeann duit comhaid agus teachtaireachtaí a roinnt go slán le gléasanna in aice láimhe thar do líonra áitiúil gan nasc idirlín a bheith ag teastáil.",
       "Tá an aip seo ar fáil ar Android, iOS, macOS, Windows agus Linux. Is féidir leat na roghanna íoslódála go léir a fháil ar an leathanach baile oifigiúil."
     ],
     "author": "Údar",
@@ -271,7 +271,7 @@
   },
   "donationPage": {
     "title": "Tabhair Síntiús",
-    "info": "Tá LocalSend saor in aisce, foinse oscailte agus gan aon fhógraí. Más maith leat an aip, is féidir leat tacú leis an bhforbairt le síntiús.",
+    "info": "Tá LocalDrop saor in aisce, foinse oscailte agus gan aon fhógraí. Más maith leat an aip, is féidir leat tacú leis an bhforbairt le síntiús.",
     "donate": "Tabhair síntiús {amount}",
     "thanks": "Go raibh míle maith agat!",
     "restore": "Athchóirigh an ceannachán"
@@ -415,7 +415,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "Ní féidir le LocalSend gléasanna eile a aimsiú gan cead a bheith aige an líonra áitiúil a scanadh. Deonaigh an cead seo sna socruithe le do thoil.",
+      "description": "Ní féidir le LocalDrop gléasanna eile a aimsiú gan cead a bheith aige an líonra áitiúil a scanadh. Deonaigh an cead seo sna socruithe le do thoil.",
       "gotoSettings": "Socruithe"
     },
     "messageInput": {
@@ -464,7 +464,7 @@
       "title": "Modhanna seolta",
       "single": "Seolann sé comhaid chuig faighteoir amháin. Glanfar an rogha tar éis aistriú comhad a bheith críochnaithe.",
       "multiple": "Seolann sé comhaid chuig ilfhaighteoirí. Ní ghlanfar an rogha tar éis aistriú comhad a bheith críochnaithe.",
-      "link": "Is féidir le faighteoirí nach bhfuil LocalSend suiteáilte acu na comhaid roghnaithe a íoslódáil tríd an nasc a oscailt ina mbrabhsálaí."
+      "link": "Is féidir le faighteoirí nach bhfuil LocalDrop suiteáilte acu na comhaid roghnaithe a íoslódáil tríd an nasc a oscailt ina mbrabhsálaí."
     },
     "zoom": {
       "title": "URL"
@@ -477,7 +477,7 @@
   "tray": {
     "@info": "Tá Treoirlínte Apple an-dian maidir leis an bhfoclaíocht \"dún\".",
     "open": "@:general.open",
-    "close": "Scoir LocalSend",
+    "close": "Scoir LocalDrop",
     "closeWindows": "Scoir"
   },
   "web": {

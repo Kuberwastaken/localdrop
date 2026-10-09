@@ -58,7 +58,7 @@ impl Repository {
 }
 
 /// The directory holding all persistent files:
-/// `$XDG_CONFIG_HOME/localsend-cli`, or `~/.config/localsend-cli`.
+/// `$XDG_CONFIG_HOME/localdrop-cli`, or `~/.config/localdrop-cli`.
 ///
 /// `~/.config` is used on every platform instead of `dirs::config_dir()`:
 /// terminal tools conventionally keep their config there even on macOS, and
@@ -70,5 +70,5 @@ fn dir() -> PathBuf {
         .filter(|path| path.is_absolute())
         .or_else(|| dirs::home_dir().map(|home| home.join(".config")))
         .unwrap_or_else(|| PathBuf::from("."))
-        .join("localsend-cli")
+        .join("localdrop-cli")
 }

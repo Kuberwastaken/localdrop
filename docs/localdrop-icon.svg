@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>LocalDrop</title>
+  <desc>A white drop with two opposing transfer arrows on a deep teal tile.</desc>
+  <rect width="512" height="512" rx="112" fill="#16665C"/>
+  <path fill="#fff" fill-rule="evenodd" d="M256 74C220 117 112 219 112 302C112 381 176 438 256 438C336 438 400 381 400 302C400 219 292 117 256 74Z M172 251H290V220L342 270L290 320V289H172Z M340 331H222V300L170 350L222 400V369H340Z"/>
+</svg>

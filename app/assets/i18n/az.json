@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Qəbul et",
     "accepted": "Qəbul edildi",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt",
       "launchAtStartup": "Girişdən sonra birbaşa başlat",
       "launchMinimized": "Birbaşa başlat: Gizli başlat",
-      "showInContextMenu": "Məzmun menyusunda LocalSend-i göstər",
+      "showInContextMenu": "Məzmun menyusunda LocalDrop-i göstər",
       "animations": "Animasiyalar"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Digər",
-      "support": "LocalSend-i dəstəklə",
+      "support": "LocalDrop-i dəstəklə",
       "donate": "İanə et",
       "privacyPolicy": "Məxfilik siyasəti",
       "termsOfUse": "İstifadə şərtləri"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Şəbəkə interfeysləri",
-    "info": "Defolt olaraq, LocalSend bütün mövcud şəbəkə interfeyslərindən istifadə edir. Burada istənilməyən şəbəkələri istisna edə bilərsiniz. Dəyişiklikləri tətbiq etmək üçün serveri yenidən başlatmalısınız.",
+    "info": "Defolt olaraq, LocalDrop bütün mövcud şəbəkə interfeyslərindən istifadə edir. Burada istənilməyən şəbəkələri istisna edə bilərsiniz. Dəyişiklikləri tətbiq etmək üçün serveri yenidən başlatmalısınız.",
     "preview": "Önizlə",
     "whitelist": "Ağ siyahı",
     "blacklist": "Qara siyahı"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Seçimlər",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend qovluğu)",
+    "appDirectory": "(LocalDrop qovluğu)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Qovluqlar olduğu üçün avtomatik söndürülür."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Sorğuları avtomatik qəbul et",
     "requirePin": "PIN tələb et",
     "pinHint": "Sizin PIN: \"{pin}\"",
-    "encryptionHint": "LocalSend özü imzalanmış sertifikatdan istifadə edir. Siz onu brauzerinizdə qəbul etməlisiniz.",
+    "encryptionHint": "LocalDrop özü imzalanmış sertifikatdan istifadə edir. Siz onu brauzerinizdə qəbul etməlisiniz.",
     "pendingRequests": "Gözləyən sorğular: {n}"
   },
   "webReceivePage": {
     "title": "Keçid vasitəsilə qəbul et"
   },
   "aboutPage": {
-    "title": "LocalSend haqqında",
+    "title": "LocalDrop haqqında",
     "description": [
-      "LocalSend internet bağlantısına ehtiyac olmadan lokal şəbəkə üzərindən yaxınlıqdakı cihazlarla faylları və mesajları təhlükəsiz paylaşmağa imkan verən pulsuz, açıq mənbəli proqramdır.",
+      "LocalDrop internet bağlantısına ehtiyac olmadan lokal şəbəkə üzərindən yaxınlıqdakı cihazlarla faylları və mesajları təhlükəsiz paylaşmağa imkan verən pulsuz, açıq mənbəli proqramdır.",
       "Bu proqram Android, iOS, macOS, Windows və Linux sistemlərində mövcuddur. Bütün yükləmə variantlarını rəsmi saytda tapa bilərsiniz."
     ],
     "author": "Müəllif",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "İanə et",
-    "info": "LocalSend pulsuz, açıq mənbəlidir və heç bir reklam yoxdur. Proqramı bəyənirsinizsə, ianə ilə inkişafını dəstəkləyə bilərsiniz.",
+    "info": "LocalDrop pulsuz, açıq mənbəlidir və heç bir reklam yoxdur. Proqramı bəyənirsinizsə, ianə ilə inkişafını dəstəkləyə bilərsiniz.",
     "donate": "{amount} ianə et",
     "thanks": "Çox təşəkkür edirəm!",
     "restore": "Satın almaları bərpa et"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend lokal şəbəkəni skan etmək icazəsi olmadan digər cihazları tapa bilmir. Zəhmət olmasa, parametrlərdən bu icazəni verin.",
+      "description": "LocalDrop lokal şəbəkəni skan etmək icazəsi olmadan digər cihazları tapa bilmir. Zəhmət olmasa, parametrlərdən bu icazəni verin.",
       "gotoSettings": "Parametrlər"
     },
     "messageInput": {
@@ -447,7 +447,7 @@
       "title": "Göndərmə rejimləri",
       "single": "Faylları bir cihaza göndərir. Faylların ötürülməsi başa çatdıqdan sonra seçim silinəcək.",
       "multiple": "Faylları birdən çox cihaza göndərir. Faylların ötürülməsi tamamlandıqdan sonra seçim silinməyəcək.",
-      "link": "LocalSend-i quraşdırmamış alıcılar linki brauzerlərində açaraq seçilmiş faylları endirə bilərlər."
+      "link": "LocalDrop-i quraşdırmamış alıcılar linki brauzerlərində açaraq seçilmiş faylları endirə bilərlər."
     },
     "zoom": {
       "title": "URL"
@@ -460,7 +460,7 @@
   "tray": {
     "@info": "Apple təlimatları \"bağla\" ifadələri ilə bağlı çox ciddidir.",
     "open": "@:general.open",
-    "close": "LocalSend-dən çıx",
+    "close": "LocalDrop-dən çıx",
     "closeWindows": "Çıxış"
   },
   "web": {

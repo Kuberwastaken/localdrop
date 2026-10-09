@@ -8,7 +8,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.org.localsend.localsendApp</string>
+		<string>group.io.github.kuberwastaken.localdrop</string>
 	</array>
 </dict>
 </plist>

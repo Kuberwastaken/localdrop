@@ -40,7 +40,7 @@ class TranslationsHy extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$hy general = _Translations$general$hy._(_root);
   @override
@@ -291,7 +291,7 @@ class _Translations$networkInterfacesPage$hy extends Translations$networkInterfa
   String get title => 'Ցանցային ինտերֆեյսներ';
   @override
   String get info =>
-      'Լռելյայն, LocalSend-ը օգտագործում է բոլոր հասանելի ցանցային ինտերֆեյսները: Այստեղ կարող եք բացառել անցանկալի ցանցերը: Փոփոխությունները կիրառելու համար պետք է թարմացնել սերվերը:';
+      'Լռելյայն, LocalDrop-ը օգտագործում է բոլոր հասանելի ցանցային ինտերֆեյսները: Այստեղ կարող եք բացառել անցանկալի ցանցերը: Փոփոխությունները կիրառելու համար պետք է թարմացնել սերվերը:';
   @override
   String get preview => 'Նախադիտում';
   @override
@@ -416,7 +416,7 @@ class _Translations$receiveOptionsPage$hy extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend պանակ)';
+  String get appDirectory => '(LocalDrop պանակ)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -495,7 +495,7 @@ class _Translations$webSharePage$hy extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN կոդը՝ «${pin}»';
   @override
-  String get encryptionHint => 'LocalSend-ը օգտագործում է ինքնաստորագրված վկայական։ Դուք պետք է ընդունեք այն ձեր բրաուզերում։';
+  String get encryptionHint => 'LocalDrop-ը օգտագործում է ինքնաստորագրված վկայական։ Դուք պետք է ընդունեք այն ձեր բրաուզերում։';
   @override
   String pendingRequests({required Object n}) => 'Սպասող հարցումներ՝ ${n}';
 }
@@ -519,10 +519,10 @@ class _Translations$aboutPage$hy extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'LocalSend-ի մասին';
+  String get title => 'LocalDrop-ի մասին';
   @override
   List<String> get description => [
-    'LocalSend-ը անվճար, բաց կոդով ծրագիր է, որը թույլ է տալիս անվտանգ կերպով կիսվել ֆայլերով և նամակներով մոտակա սարքերի հետ ձեր տեղական ցանցի միջոցով՝ առանց ինտերնետ կապի անհրաժեշտության:',
+    'LocalDrop-ը անվճար, բաց կոդով ծրագիր է, որը թույլ է տալիս անվտանգ կերպով կիսվել ֆայլերով և նամակներով մոտակա սարքերի հետ ձեր տեղական ցանցի միջոցով՝ առանց ինտերնետ կապի անհրաժեշտության:',
     'Ծրագիրը հասանելի է Android, iOS, macOS, Windows և Linux օպերացիոն համակարգերում: Դուք կարող եք գտնել բոլոր ներբեռնման տարբերակները պաշտոնական գլխավոր էջում:',
   ];
   @override
@@ -546,7 +546,7 @@ class _Translations$donationPage$hy extends Translations$donationPage$en {
   String get title => 'Նվիրաբերել';
   @override
   String get info =>
-      'LocalSend-ը անվճար է, բաց կոդով և առանց որևէ գովազդի: Եթե ​​ձեզ դուր է գալիս ծրագիրը, կարող եք աջակցել զարգացմանը նվիրաբերելով:';
+      'LocalDrop-ը անվճար է, բաց կոդով և առանց որևէ գովազդի: Եթե ​​ձեզ դուր է գալիս ծրագիրը, կարող եք աջակցել զարգացմանը նվիրաբերելով:';
   @override
   String donate({required Object amount}) => 'Նվիրաբերել ${amount}';
   @override
@@ -743,7 +743,7 @@ class _Translations$tray$hy extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Դուրս գալ LocalSend-ից';
+  String get close => 'Դուրս գալ LocalDrop-ից';
   @override
   String get closeWindows => 'Դուրս գալ';
 }
@@ -954,7 +954,7 @@ class _Translations$settingsTab$general$hy extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'Թաքնված ավտոբացում';
   @override
-  String get showInContextMenu => 'Ցուցադրել LocalSend-ը կոնտեքստային մենյուում';
+  String get showInContextMenu => 'Ցուցադրել LocalDrop-ը կոնտեքստային մենյուում';
   @override
   String get animations => 'Անիմացիաներ';
 }
@@ -1056,7 +1056,7 @@ class _Translations$settingsTab$other$hy extends Translations$settingsTab$other$
   @override
   String get title => 'Այլ';
   @override
-  String get support => 'Աջակցել LocalSend-ին';
+  String get support => 'Աջակցել LocalDrop-ին';
   @override
   String get donate => 'Նվիրաբերել';
   @override
@@ -1411,7 +1411,7 @@ class _Translations$dialogs$localNetworkUnauthorized$hy extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend-ը չի կարող գտնել այլ սարքեր՝ առանց այդ թույլտվության: Խնդրում ենք տրամադրել այս թույլտվությունը կարգավորումներում:';
+      'LocalDrop-ը չի կարող գտնել այլ սարքեր՝ առանց այդ թույլտվության: Խնդրում ենք տրամադրել այս թույլտվությունը կարգավորումներում:';
   @override
   String get gotoSettings => 'Կարգավորումներ';
 }
@@ -1553,7 +1553,7 @@ class _Translations$dialogs$sendModeHelp$hy extends Translations$dialogs$sendMod
   @override
   String get multiple => 'Ֆայլերը ուղարկում է մի քանի ստացողների: Ընտրությունը չի ջնջվի ֆայլերի փոխանցման ավարտից հետո:';
   @override
-  String get link => 'Ստացողները, որոնք չունեն LocalSend տեղադրված, կարող են ներբեռնել ընտրված ֆայլերը՝ բացելով հղումը իրենց բրաուզերում։';
+  String get link => 'Ստացողները, որոնք չունեն LocalDrop տեղադրված, կարող են ներբեռնել ընտրված ֆայլերը՝ բացելով հղումը իրենց բրաուզերում։';
 }
 
 // Path: dialogs.zoom

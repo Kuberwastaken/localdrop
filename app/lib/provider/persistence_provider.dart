@@ -34,12 +34,12 @@ final _logger = Logger('PersistenceService');
 
 String get _windowsFile {
   final appData = Platform.environment['APPDATA'];
-  return '$appData\\LocalSend\\settings.json';
+  return '$appData\\LocalDrop\\settings.json';
 }
 
 String get _windowsLegacyFile {
   final appData = Platform.environment['APPDATA'];
-  return '$appData\\org.localsend\\localsend_app\\shared_preferences.json';
+  return '$appData\\io.github.kuberwastaken\\localdrop\\shared_preferences.json';
 }
 
 // Version of the storage

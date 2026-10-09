@@ -9,7 +9,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-    <string>LocalSend</string>
+    <string>LocalDrop</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -148,12 +148,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Send to LocalSend</string>
+                <string>Send to LocalDrop</string>
             </dict>
             <key>NSMessage</key>
             <string>handleSendTextService</string>
             <key>NSPortName</key>
-            <string>LocalSend</string>
+            <string>LocalDrop</string>
             <key>NSSendTypes</key>
             <array>
                 <string>public.plain-text</string>

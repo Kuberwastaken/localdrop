@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Nõustu",
     "accepted": "Nõustusid",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Sulgemisel aseta rakendus süsteemisalve",
       "launchAtStartup": "Sisselogimisel käivita automaatselt",
       "launchMinimized": "Automaatsel käivitamisel: käivita peidetuna",
-      "showInContextMenu": "Näita LocalSendi kontekstimenüüs",
+      "showInContextMenu": "Näita LocalDropi kontekstimenüüs",
       "animations": "Animatsioonid"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Muu teave",
-      "support": "Toeta LocalSendi",
+      "support": "Toeta LocalDropi",
       "donate": "Toeta rahaliselt",
       "privacyPolicy": "Andmekaitsepõhimõtted",
       "termsOfUse": "Kasutustingimused"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Võrguliidesed",
-    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.",
+    "info": "Vaikimisi kasutab LocalDrop kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.",
     "preview": "Eelvaade",
     "whitelist": "Lubatud loend",
     "blacklist": "Keelatud loend"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Eelistused",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSendi kaust)",
+    "appDirectory": "(LocalDropi kaust)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Pole kasutusel, kuna saadetavate hulgas leidub kaustu."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Nõustu päringutega automaatselt",
     "requirePin": "Küsi PIN-koodi",
     "pinHint": "PIN-kood on „{pin}“",
-    "encryptionHint": "LocalSend kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris.",
+    "encryptionHint": "LocalDrop kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris.",
     "pendingRequests": "Ootel päringuid: {n}"
   },
   "webReceivePage": {
     "title": "Võta vastu lingi kaudu"
   },
   "aboutPage": {
-    "title": "Rakenduse teave: LocalSend",
+    "title": "Rakenduse teave: LocalDrop",
     "description": [
-      "LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav. Rakenduse eesmärgiks on võimaldada failide ja tekstide jagamist kohtvõrgus asuvate arvutite vahel nii, et välist internetiühendust pole vaja kasutada.",
+      "LocalDrop põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav. Rakenduse eesmärgiks on võimaldada failide ja tekstide jagamist kohtvõrgus asuvate arvutite vahel nii, et välist internetiühendust pole vaja kasutada.",
       "See rakendus on saadaval Androidi, iOSi, macOSi, Windowsi ja Linuxi jaoks. Kõik allalaaditavad paigaldusfailid leiad meie ametlikust veebisaidist."
     ],
     "author": "Autor",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Toeta meid rahaliselt",
-    "info": "LocalSend põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.",
+    "info": "LocalDrop põhineb avatud lähtekoodil, on kõikide jaoks vaba ning tasuta kasutatav, ega sisalda reklaame. Kui sulle see rakendus meeldib, siis palun toeta meie arendust.",
     "donate": "Anneta {amount}",
     "thanks": "Suur tänu!",
     "restore": "Taasta ost"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "Ilma kohtvõrgu skaneerimise õiguseta ei suuda LocalSend leida teisi seadmeid. Palun luba süsteemi seadistustest vajalikud õigused.",
+      "description": "Ilma kohtvõrgu skaneerimise õiguseta ei suuda LocalDrop leida teisi seadmeid. Palun luba süsteemi seadistustest vajalikud õigused.",
       "gotoSettings": "Seadistused"
     },
     "messageInput": {
@@ -447,7 +447,7 @@
       "title": "Saatmisviisid",
       "single": "Sellega saadame faile ühele vastuvõtjale. Peale failide saatmise lõppu eemaldame failid saatmisloendist.",
       "multiple": "Sellega saadame faile mitmele vastuvõtjale. Peale failide saatmise lõppu failid jäävad saatmisloendisse alles.",
-      "link": "Kui failide vastuvõtjatel pole arvutis või nutiseadmes rakendust LocalSend, siis avades etteantud lingi oma veebibrauseris, saavad nad failid alla laadida."
+      "link": "Kui failide vastuvõtjatel pole arvutis või nutiseadmes rakendust LocalDrop, siis avades etteantud lingi oma veebibrauseris, saavad nad failid alla laadida."
     },
     "zoom": {
       "title": "Võrguaadress"
@@ -460,7 +460,7 @@
   "tray": {
     "@info": "Apple'i kasutajaliidese juhendid on väga ranged sõna „Sulge“ kasutamise osas.",
     "open": "@:general.open",
-    "close": "Sulge LocalSend",
+    "close": "Sulge LocalDrop",
     "closeWindows": "Välju"
   },
   "web": {

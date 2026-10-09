@@ -1,10 +1,10 @@
 [package]
 name = "localsend-cli"
-version = "1.18.2"
+version = "1.0.0"
 edition = "2024"
 
 [[bin]]
-name = "localsend-cli"
+name = "localdrop-cli"
 path = "src/main.rs"
 
 [dependencies]

@@ -11,17 +11,17 @@
   #define ResultDir "D:\inno-result"
 #endif
 
-#define MyAppName "LocalSend"
-#define MyAppVersion "1.18.2"
-#define MyAppPublisher "Tien Do Nam"
-#define MyAppURL "https://localsend.org"
-#define MyAppExeName "localsend_app.exe"
+#define MyAppName "LocalDrop"
+#define MyAppVersion "1.0.0"
+#define MyAppPublisher "Kuberwastaken"
+#define MyAppURL "https://github.com/Kuberwastaken/localdrop"
+#define MyAppExeName "localdrop.exe"
 #define MyAppMsixHelper "localsend_msix_helper.msix"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{00809252-FEC6-448E-83B4-E7F55AE7E47D}
+AppId={{A208EE41-6D57-4F01-9252-8C6635414109}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -35,7 +35,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir={#ResultDir}
-OutputBaseFilename=localsend
+OutputBaseFilename=localdrop
 SetupIconFile={#PayloadDir}\logo.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
@@ -106,5 +106,5 @@ Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Add-Ap
 
 [UninstallRun]
 #ifndef SkipMsixHelper
-Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Get-AppxPackage LocalSend.App | Remove-AppxPackage"; Flags: nowait runhidden
+Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Get-AppxPackage LocalDrop.App | Remove-AppxPackage"; Flags: nowait runhidden
 #endif

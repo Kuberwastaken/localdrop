@@ -17,7 +17,7 @@ pub fn render(storage: &Repository, server: &ServerHandle) -> String {
         .enumerate()
         .map(|(i, line)| {
             let right = match i {
-                1 => "  LocalSend CLI",
+                1 => "  LocalDrop CLI",
                 2 => concat!("  v", env!("CARGO_PKG_VERSION")),
                 _ => "",
             };

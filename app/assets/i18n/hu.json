@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Elfogad",
     "accepted": "Elfogadva",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
-      "showInContextMenu": "A LocalSend megjelenítése a helyi menüben",
+      "showInContextMenu": "A LocalDrop megjelenítése a helyi menüben",
       "animations": "Animációk"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Egyéb",
-      "support": "LocalSend támogatás",
+      "support": "LocalDrop támogatás",
       "donate": "Adomány",
       "privacyPolicy": "Adatvédelmi irányelvek",
       "termsOfUse": "Használati feltételek"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Hálózati interfészek",
-    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
+    "info": "Alapértelmezésként a LocalDrop az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
     "preview": "Előnézet",
     "whitelist": "Fehérlista",
     "blacklist": "Tiltólista"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Opciók",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend mappa)",
+    "appDirectory": "(LocalDrop mappa)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Automatikusan kikapcsol, mert vannak könyvtárak."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Kérések automatikus elfogadása",
     "requirePin": "PIN kód megkövetelése",
     "pinHint": "A PIN kód \"{pin}\"",
-    "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
+    "encryptionHint": "A LocalDrop a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
     "pendingRequests": "Függőben lévő kérések: {n}"
   },
   "webReceivePage": {
     "title": "Linken keresztüli fogadás"
   },
   "aboutPage": {
-    "title": "A LocalSend",
+    "title": "A LocalDrop",
     "description": [
-      "A LocalSend egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.",
+      "A LocalDrop egy ingyenes, nyílt forráskódú alkalmazás, amely lehetővé teszi a fájlok és üzenetek biztonságos megosztását a közeli eszközökkel a helyi hálózaton keresztül, internet kapcsolat nélkül.",
       "Ez az alkalmazás Android, iOS, macOS, Windows és Linux rendszereken érhető el. Az összes letöltési lehetőséget megtalálja a hivatalos honlapon."
     ],
     "author": "Szerző",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Adomány",
-    "info": "A LocalSend ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.",
+    "info": "A LocalDrop ingyenes, nyílt forráskódú és hirdetések nélküli. Ha megtetszett az alkalmazás, adományával támogathatja a fejlesztést.",
     "donate": "Adomány {amount}",
     "thanks": "Köszönöm szépen!",
     "restore": "Vásárlás visszaállítása"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "A LocalSend nem találhat más eszközöket a helyi hálózat vizsgálatára vonatkozó engedély nélkül. Adja meg ezt az engedélyt a beállításokban.",
+      "description": "A LocalDrop nem találhat más eszközöket a helyi hálózat vizsgálatára vonatkozó engedély nélkül. Adja meg ezt az engedélyt a beállításokban.",
       "gotoSettings": "Beállítások"
     },
     "messageInput": {
@@ -447,7 +447,7 @@
       "title": "Küldési módok",
       "single": "Fájlokat küld egy címzettnek. Az átvitel befejezése után a kijelölés törlődik.",
       "multiple": "Fájlokat küld több címzettnek. A kijelölés nem törlődik.",
-      "link": "Azok a címzettek, akiknél nincs telepítve a LocalSend, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
+      "link": "Azok a címzettek, akiknél nincs telepítve a LocalDrop, letölthetik a kiválasztott fájlokat a hivatkozás megnyitásával a böngészőjükben."
     },
     "zoom": {
       "title": "URL"

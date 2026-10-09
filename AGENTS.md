@@ -1,6 +1,6 @@
-# AGENTS.md
+# AGENTS.md — LocalDrop
 
-LocalSend disallows AI generated contributions unless:
+This is the independently maintained LocalDrop fork. The owner explicitly authorizes AI-assisted development here. Contributions submitted to upstream LocalSend must follow its policy: LocalSend disallows AI generated contributions unless:
 
 - they are bug fixes or
 - very small or

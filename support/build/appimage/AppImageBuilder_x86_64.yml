@@ -7,11 +7,11 @@ script:
 AppDir:
   path: AppDir
   app_info:
-    id: org.localsend.localsend_app
-    name: LocalSend
-    icon: localsend
-    version: 1.18.2
-    exec: localsend_app
+    id: io.github.kuberwastaken.localdrop
+    name: LocalDrop
+    icon: localdrop
+    version: 1.0.0
+    exec: localdrop
     exec_args: $@
   apt:
     arch:

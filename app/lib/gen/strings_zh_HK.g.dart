@@ -40,7 +40,7 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final Translations$general$zh_HK general = Translations$general$zh_HK.internal(_root);
   @override
@@ -288,7 +288,7 @@ class Translations$networkInterfacesPage$zh_HK extends Translations$networkInter
   @override
   String get title => '網絡介面';
   @override
-  String get info => 'LocalSend 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。';
+  String get info => 'LocalDrop 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。';
   @override
   String get preview => '預覽';
   @override
@@ -413,7 +413,7 @@ class Translations$receiveOptionsPage$zh_HK extends Translations$receiveOptionsP
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '（LocalSend 資料夾）';
+  String get appDirectory => '（LocalDrop 資料夾）';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -492,7 +492,7 @@ class Translations$webSharePage$zh_HK extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => '密碼為「${pin}」';
   @override
-  String get encryptionHint => 'LocalSend 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。';
+  String get encryptionHint => 'LocalDrop 用嘅係自我簽署憑證。麻煩你喺瀏覽器度允許咗佢。';
   @override
   String pendingRequests({required Object n}) => '仲有 ${n} 個請求未處理';
 }
@@ -516,10 +516,10 @@ class Translations$aboutPage$zh_HK extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => '關於 LocalSend';
+  String get title => '關於 LocalDrop';
   @override
   List<String> get description => [
-    'LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。',
+    'LocalDrop 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。',
     '呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。',
   ];
   @override
@@ -542,7 +542,7 @@ class Translations$donationPage$zh_HK extends Translations$donationPage$en {
   @override
   String get title => _root.settingsTab.other.donate;
   @override
-  String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？';
+  String get info => 'LocalDrop 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？';
   @override
   String donate({required Object amount}) => '捐 ${amount}';
   @override
@@ -662,7 +662,7 @@ class Translations$tray$zh_HK extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => '退出 LocalSend';
+  String get close => '退出 LocalDrop';
   @override
   String get closeWindows => '離開';
 }
@@ -873,7 +873,7 @@ class Translations$settingsTab$general$zh_HK extends Translations$settingsTab$ge
   @override
   String get launchMinimized => '自動啟動成通知圖示';
   @override
-  String get showInContextMenu => '喺檔案功能表嘅「傳送到」項目顯示 LocalSend';
+  String get showInContextMenu => '喺檔案功能表嘅「傳送到」項目顯示 LocalDrop';
   @override
   String get animations => '動畫';
 }
@@ -975,7 +975,7 @@ class Translations$settingsTab$other$zh_HK extends Translations$settingsTab$othe
   @override
   String get title => '其他';
   @override
-  String get support => '支援 LocalSend';
+  String get support => '支援 LocalDrop';
   @override
   String get donate => '捐款';
   @override
@@ -1328,7 +1328,7 @@ class Translations$dialogs$localNetworkUnauthorized$zh_HK extends Translations$d
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => '喺冇權掃描區域網絡嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。';
+  String get description => '喺冇權掃描區域網絡嘅情況下 LocalDrop 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。';
   @override
   String get gotoSettings => '開啟系統設定';
 }
@@ -1472,7 +1472,7 @@ class Translations$dialogs$sendModeHelp$zh_HK extends Translations$dialogs$sendM
   @override
   String get multiple => '一次過 send 畀多部裝置，揀選項目會一路保留。';
   @override
-  String get link => '冇裝 LocalSend 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。';
+  String get link => '冇裝 LocalDrop 嘅裝置可以透過條 link 嚟 download 返揀選嘅項目。';
 }
 
 // Path: dialogs.zoom

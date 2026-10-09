@@ -21,11 +21,11 @@
         xmlns:com2="http://schemas.microsoft.com/appx/manifest/com/windows10/2" 
         xmlns:com3="http://schemas.microsoft.com/appx/manifest/com/windows10/3" 
         IgnorableNamespaces="uap3 desktop">
-  <Identity Name="LocalSend.App" Version="1.18.2.0"
-            Publisher="CN=Tien Do Nam, O=Tien Do Nam, L=Berlin, C=DE" ProcessorArchitecture="x64" />
+  <Identity Name="LocalDrop.App" Version="1.0.0.0"
+            Publisher="CN=Kuberwastaken" ProcessorArchitecture="x64" />
   <Properties>
-    <DisplayName>LocalSend MSIX Helper</DisplayName>
-    <PublisherDisplayName>Tien Do Nam</PublisherDisplayName>
+    <DisplayName>LocalDrop MSIX Helper</DisplayName>
+    <PublisherDisplayName>Kuberwastaken</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
     <Description>An open source cross-platform alternative to AirDrop</Description>
     <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
@@ -40,11 +40,11 @@
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
   <Applications>
-    <Application Id="localsendapp" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="localdropapp" Executable="localdrop.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements AppListEntry="none" BackgroundColor="transparent"
-        DisplayName="LocalSend" Square150x150Logo="Images\Square150x150Logo.png"
+        DisplayName="LocalDrop" Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png" Description="An open source cross-platform alternative to AirDrop">
-        <uap:DefaultTile ShortName="LocalSend" Square310x310Logo="Images\LargeTile.png"
+        <uap:DefaultTile ShortName="LocalDrop" Square310x310Logo="Images\LargeTile.png"
           Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
@@ -56,11 +56,11 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.startupTask" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication" uap10:Parameters="autostart">
-          <desktop:StartupTask TaskId="localsend" Enabled="false" DisplayName="LocalSend"/>
+        <desktop:Extension Category="windows.startupTask" Executable="localdrop.exe" EntryPoint="Windows.FullTrustApplication" uap10:Parameters="autostart">
+          <desktop:StartupTask TaskId="localdrop" Enabled="false" DisplayName="LocalDrop"/>
         </desktop:Extension>
         <uap:Extension Category="windows.shareTarget">
-          <uap:ShareTarget Description="Send to Localsend">
+          <uap:ShareTarget Description="Send to LocalDrop">
             <uap:SupportedFileTypes>
               <uap:SupportsAnyFileType />
             </uap:SupportedFileTypes>

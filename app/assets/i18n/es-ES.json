@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Aceptar",
     "accepted": "Aceptado",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Cerrar: Minimizar ventana",
       "launchAtStartup": "Inicio automático",
       "launchMinimized": "Inicio automático: Iniciar minimizado",
-      "showInContextMenu": "Mostrar LocalSend en el menú contextual",
+      "showInContextMenu": "Mostrar LocalDrop en el menú contextual",
       "animations": "Animaciones"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Otros",
-      "support": "Apoya a LocalSend",
+      "support": "Apoya a LocalDrop",
       "donate": "Donar",
       "privacyPolicy": "Política de privacidad",
       "termsOfUse": "Condiciones de uso"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Interfaces de la red",
-    "info": "De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.",
+    "info": "De forma predeterminada, LocalDrop utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.",
     "preview": "Vista previa",
     "whitelist": "Lista blanca",
     "blacklist": "Lista negra"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Opciones",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(Carpeta LocalSend)",
+    "appDirectory": "(Carpeta LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Aceptar solicitudes automáticamente",
     "requirePin": "Requerir PIN",
     "pinHint": "El PIN es \"{pin}\"",
-    "encryptionHint": "LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
+    "encryptionHint": "LocalDrop utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
     "pendingRequests": "Solicitudes pendientes: {n}"
   },
   "webReceivePage": {
     "title": "Recibir mediante enlace"
   },
   "aboutPage": {
-    "title": "Sobre LocalSend",
+    "title": "Sobre LocalDrop",
     "description": [
-      "LocalSend es una aplicación libre, de código abierto, que te permite compartir archivos y mensajes de forma segura con dispositivos cercanos a través de tu red local sin necesidad de conexión a Internet.",
+      "LocalDrop es una aplicación libre, de código abierto, que te permite compartir archivos y mensajes de forma segura con dispositivos cercanos a través de tu red local sin necesidad de conexión a Internet.",
       "Está disponible para Android, iOS, macOS, Windows y Linux. Puedes encontrar todas las opciones de descarga en la página web oficial."
     ],
     "author": "Autor",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Donar",
-    "info": "LocalSend es libre, open source y no contiene anuncios. Si te gusta la aplicación puedes ayudar al desarrollo con una donación.",
+    "info": "LocalDrop es libre, open source y no contiene anuncios. Si te gusta la aplicación puedes ayudar al desarrollo con una donación.",
     "donate": "Donar {amount}",
     "thanks": "¡Muchas gracias!",
     "restore": "Restablecer compra"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend no puede encontrar otros dispositivos sin tener permiso para escanear la red local. Por favor, concede este permiso en los ajustes.",
+      "description": "LocalDrop no puede encontrar otros dispositivos sin tener permiso para escanear la red local. Por favor, concede este permiso en los ajustes.",
       "gotoSettings": "Ajustes"
     },
     "messageInput": {
@@ -447,7 +447,7 @@
       "title": "Modos de envío",
       "single": "Enviar archivos a un solo destino. La selección se borrará una vez finalizada la transferencia.",
       "multiple": "Enviar archivos a múltiples destinos. La selección no se borrará.",
-      "link": "Los destinatarios que no tengan LocalSend instalado pueden descargar los archivos seleccionados abriendo el enlace en su navegador."
+      "link": "Los destinatarios que no tengan LocalDrop instalado pueden descargar los archivos seleccionados abriendo el enlace en su navegador."
     },
     "zoom": {
       "title": "URL"
@@ -460,7 +460,7 @@
   "tray": {
     "@info": "Las directrices de Apple son muy estrictas en cuanto a la expresión 'cerrar'.",
     "open": "@:general.open",
-    "close": "Cerrar LocalSend",
+    "close": "Cerrar LocalDrop",
     "closeWindows": "Cerrar"
   },
   "web": {

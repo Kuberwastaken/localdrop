@@ -27,21 +27,14 @@ Future<void> main(List<String> args) async {
   try {
     container = await preInit(args);
   } catch (e, stackTrace) {
-    showInitErrorApp(
-      error: e,
-      stackTrace: stackTrace,
-    );
+    showInitErrorApp(error: e, stackTrace: stackTrace);
     return;
   }
 
   runApp(
     RefenaScope.withContainer(
       container: container,
-      child: SDTFScope(
-        child: TranslationProvider(
-          child: const LocalSendApp(),
-        ),
-      ),
+      child: SDTFScope(child: TranslationProvider(child: const LocalSendApp())),
     ),
   );
 }
@@ -94,12 +87,7 @@ class LocalSendApp extends StatelessWidget {
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
               builder: (context, child) => WindowBrightnessWatcher(child: child!),
               navigatorKey: context.read(navigationProvider).key,
-              home: RouterinoHome(
-                builder: () => const HomePage(
-                  initialTab: HomeTab.receive,
-                  appStart: true,
-                ),
-              ),
+              home: RouterinoHome(builder: () => const HomePage(initialTab: HomeTab.receive, appStart: true)),
             ),
           ),
         ),

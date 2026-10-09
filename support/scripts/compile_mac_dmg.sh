@@ -2,7 +2,7 @@
 # - brew install create-dmg
 
 VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
-DMG="LocalSend-$VERSION.dmg"
+DMG="LocalDrop-$VERSION.dmg"
 
 cd app
 fvm flutter clean
@@ -13,8 +13,8 @@ fvm flutter build macos
 echo
 echo "Signing the app..."
 echo
-SIGN_ID="Developer ID Application: Tien Do Nam (3W7H4PYMCV)"
-codesign --deep --force --verbose --options runtime --preserve-metadata=entitlements --sign "$SIGN_ID" build/macos/Build/Products/Release/LocalSend.app
+SIGN_ID="${LOCALDROP_SIGN_ID:?Set LOCALDROP_SIGN_ID to your own Developer ID identity}"
+codesign --deep --force --verbose --options runtime --preserve-metadata=entitlements --sign "$SIGN_ID" build/macos/Build/Products/Release/LocalDrop.app
 
 # create dmg
 # brew install create-dmg
@@ -23,13 +23,13 @@ echo "Creating dmg..."
 echo
 rm -f "$DMG"
 create-dmg \
-  --volname "LocalSend" \
+  --volname "LocalDrop" \
   --window-size 500 300 \
   --background "../support/build/dmg/background.png" \
-  --icon LocalSend.app 130 110 \
+  --icon LocalDrop.app 130 110 \
   --app-drop-link 360 110 \
   "$DMG" \
-  build/macos/Build/Products/Release/LocalSend.app
+  build/macos/Build/Products/Release/LocalDrop.app
 
 # sign the dmg
 echo
@@ -38,9 +38,9 @@ echo
 codesign --force --verbose --sign "$SIGN_ID" "$DMG"
 
 # send to apple for notarization
-DEV_EMAIL=example@example.com
-APP_PASSWORD=abcd-efgh-ijkl-mnop
-TEAM_ID=3W7H4PYMCV
+DEV_EMAIL="${LOCALDROP_APPLE_ID:?Set LOCALDROP_APPLE_ID}"
+APP_PASSWORD="${LOCALDROP_APP_PASSWORD:?Set LOCALDROP_APP_PASSWORD}"
+TEAM_ID="${LOCALDROP_TEAM_ID:?Set LOCALDROP_TEAM_ID}"
 
 echo
 echo "Sending to apple for notarization..."

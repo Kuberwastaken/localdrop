@@ -1,5 +1,5 @@
 {
-  "appName": "LocalSend",
+  "appName": "LocalDrop",
   "general": {
     "accept": "Terima",
     "accepted": "Diterima",
@@ -109,7 +109,7 @@
       "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
       "launchAtStartup": "Mulai otomatis setelah masuk",
       "launchMinimized": "Mulai otomatis: Berjalan di latar",
-      "showInContextMenu": "Tampilkan LocalSend di menu konteks",
+      "showInContextMenu": "Tampilkan LocalDrop di menu konteks",
       "animations": "Animasi"
     },
     "receive": {
@@ -152,7 +152,7 @@
     },
     "other": {
       "title": "Lainnya",
-      "support": "Dukung LocalSend",
+      "support": "Dukung LocalDrop",
       "donate": "Donasi",
       "privacyPolicy": "Kebijakan Privasi",
       "termsOfUse": "Syarat dan Ketentuan Penggunaan"
@@ -180,7 +180,7 @@
   },
   "networkInterfacesPage": {
     "title": "Antarmuka Jaringan",
-    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.",
+    "info": "Secara default, LocalDrop menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.",
     "preview": "Pratinjau",
     "whitelist": "Daftar putih",
     "blacklist": "Daftar hitam"
@@ -241,7 +241,7 @@
   "receiveOptionsPage": {
     "title": "Pilihan",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(folder LocalSend)",
+    "appDirectory": "(folder LocalDrop)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
@@ -293,16 +293,16 @@
     "autoAccept": "Terima permintaan secara otomatis",
     "requirePin": "Memerlukan PIN",
     "pinHint": "PIN-nya adalah \"{pin}\"",
-    "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
+    "encryptionHint": "LocalDrop menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Banyaknya permintaan yang tertunda: {n}"
   },
   "webReceivePage": {
     "title": "Terima melalui tautan"
   },
   "aboutPage": {
-    "title": "Tentang LocalSend",
+    "title": "Tentang LocalDrop",
     "description": [
-      "LocalSend adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.",
+      "LocalDrop adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.",
       "Aplikasi ini tersedia untuk platform Android, iOS, macOS, Windows, dan Linux. Semua pilihan pengunduhan dapat ditemukan di laman situs resmi kami."
     ],
     "author": "Pembuat",
@@ -312,7 +312,7 @@
   },
   "donationPage": {
     "title": "Donasi",
-    "info": "LocalSend adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.",
+    "info": "LocalDrop adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.",
     "donate": "Donasi {amount}",
     "thanks": "Terima kasih banyak!",
     "restore": "Kembalikan dana"
@@ -400,7 +400,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.",
+      "description": "LocalDrop tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.",
       "gotoSettings": "Pengaturan"
     },
     "messageInput": {
@@ -447,7 +447,7 @@
       "title": "Mode Pengiriman",
       "single": "Mengirim berkas ke satu penerima. Pilihan penerima akan dihapus setelah selesai membagikan berkas.",
       "multiple": "Mengirim berkas ke beberapa penerima. Pilihan penerima tidak akan dihapus.",
-      "link": "Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban."
+      "link": "Penerima yang tidak memiliki LocalDrop dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban."
     },
     "zoom": {
       "title": "URL"
@@ -460,7 +460,7 @@
   "tray": {
     "@info": "Pedoman Apple sangat ketat mengenai kata-kata 'tutup'.",
     "open": "@:general.open",
-    "close": "Tutup LocalSend",
+    "close": "Tutup LocalDrop",
     "closeWindows": "Keluar"
   },
   "web": {

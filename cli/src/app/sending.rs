@@ -42,7 +42,7 @@ pub(super) enum Payload {
 
 /// Returns the `--text` argument, or stdin when it is `-`. A single trailing
 /// line break is dropped from stdin, like shell command substitution does, so
-/// that `echo hi | localsend-cli send --text -` sends "hi".
+/// that `echo hi | localdrop-cli send --text -` sends "hi".
 pub(super) fn read_text(arg: &str) -> anyhow::Result<Bytes> {
     let text = match arg {
         "-" => {
@@ -462,7 +462,7 @@ mod tests {
                 .unwrap()
                 .as_nanos();
             let path = std::env::temp_dir().join(format!(
-                "localsend-cli-{name}-{}-{nonce}",
+                "localdrop-cli-{name}-{}-{nonce}",
                 std::process::id()
             ));
             fs::create_dir_all(&path).unwrap();

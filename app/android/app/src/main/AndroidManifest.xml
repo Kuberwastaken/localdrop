@@ -27,7 +27,7 @@
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
-        android:label="LocalSend"
+        android:label="LocalDrop"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:banner="@drawable/banner"
@@ -78,7 +78,7 @@
         <service
             android:name=".QuickTileService"
             android:icon="@mipmap/ic_launcher_quicktile_foreground"
-            android:label="LocalSend"
+            android:label="LocalDrop"
             android:process=":quick_tile_service"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true"

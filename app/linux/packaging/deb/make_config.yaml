@@ -1,8 +1,8 @@
-display_name: LocalSend
-package_name: localsend
+display_name: LocalDrop
+package_name: localdrop
 maintainer:
-  name: Tienisto
-  email: dev.tien.donam@gmail.com
+  name: Kuberwastaken
+  email: Kuberwastaken@users.noreply.github.com
 co_authors:
   - name: TheGB0077
     email: gb.lima.dev@gmail.com
@@ -22,7 +22,7 @@ dependencies:
   - xdg-user-dirs
 
 postinstall_scripts:
-  - echo "Installed Localsend successfully"
+  - echo "Installed LocalDrop successfully"
 postuninstall_scripts:
   - if [ "$1" = "remove" ]; then echo "Sorry to see you go :("; fi
 

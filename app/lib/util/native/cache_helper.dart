@@ -48,7 +48,7 @@ Future<void> _clear(RootIsolateToken token) async {
     checkPlatform([TargetPlatform.iOS])
         ? PathProviderFoundation()
               .getContainerPath(
-                appGroupIdentifier: 'group.org.localsend.localsendApp',
+                appGroupIdentifier: 'group.io.github.kuberwastaken.localdrop',
               )
               .then((directoryPath) async {
                 if (directoryPath == null) {

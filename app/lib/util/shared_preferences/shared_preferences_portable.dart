@@ -16,10 +16,7 @@ class SharedPreferencesPortable extends SharedPreferencesFile {
 
 /// Returns the absolute path to the settings.json file next to the executable.
 String _getSettingsPathFromExecutable() {
-  return buildSettingsPath(
-    executablePath: _resolveExecutable(),
-    fallbackDirectory: () => Directory.current.path,
-  );
+  return buildSettingsPath(executablePath: _resolveExecutable(), fallbackDirectory: () => Directory.current.path);
 }
 
 /// Returns [Platform.resolvedExecutable], or null when the VM cannot resolve it.
@@ -41,10 +38,7 @@ String? _resolveExecutable() {
 /// falling back to [fallbackDirectory] when the executable path is unknown.
 /// [fallbackDirectory] is only called when the fallback is actually taken.
 @visibleForTesting
-String buildSettingsPath({
-  required String? executablePath,
-  required String Function() fallbackDirectory,
-}) {
+String buildSettingsPath({required String? executablePath, required String Function() fallbackDirectory}) {
   final directory = executablePath == null ? fallbackDirectory() : File(executablePath).parent.path;
   return path.join(directory, 'settings.json');
 }

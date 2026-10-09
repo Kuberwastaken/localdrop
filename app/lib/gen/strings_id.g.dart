@@ -40,7 +40,7 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final _Translations$general$id general = _Translations$general$id._(_root);
   @override
@@ -289,7 +289,7 @@ class _Translations$networkInterfacesPage$id extends Translations$networkInterfa
   String get title => 'Antarmuka Jaringan';
   @override
   String get info =>
-      'Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
+      'Secara default, LocalDrop menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
   @override
   String get preview => 'Pratinjau';
   @override
@@ -414,7 +414,7 @@ class _Translations$receiveOptionsPage$id extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(folder LocalSend)';
+  String get appDirectory => '(folder LocalDrop)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -493,7 +493,7 @@ class _Translations$webSharePage$id extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN-nya adalah "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.';
+  String get encryptionHint => 'LocalDrop menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.';
   @override
   String pendingRequests({required Object n}) => 'Banyaknya permintaan yang tertunda: ${n}';
 }
@@ -517,10 +517,10 @@ class _Translations$aboutPage$id extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'Tentang LocalSend';
+  String get title => 'Tentang LocalDrop';
   @override
   List<String> get description => [
-    'LocalSend adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.',
+    'LocalDrop adalah aplikasi gratis dan bersumber terbuka yang memungkinkan Anda untuk membagikan berkas dan pesan secara aman dengan perangkat lain yang terhubung pada jaringan lokal tanpa memerlukan koneksi internet atau paket data.',
     'Aplikasi ini tersedia untuk platform Android, iOS, macOS, Windows, dan Linux. Semua pilihan pengunduhan dapat ditemukan di laman situs resmi kami.',
   ];
   @override
@@ -544,7 +544,7 @@ class _Translations$donationPage$id extends Translations$donationPage$en {
   String get title => 'Donasi';
   @override
   String get info =>
-      'LocalSend adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.';
+      'LocalDrop adalah aplikasi gratis, bersumber terbuka, dan bebas iklan. Jika Anda menyukai aplikasi ini, mohon berikan kami dukungan dengan cara memberikan donasi.';
   @override
   String donate({required Object amount}) => 'Donasi ${amount}';
   @override
@@ -660,7 +660,7 @@ class _Translations$tray$id extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Tutup LocalSend';
+  String get close => 'Tutup LocalDrop';
   @override
   String get closeWindows => 'Keluar';
 }
@@ -871,7 +871,7 @@ class _Translations$settingsTab$general$id extends Translations$settingsTab$gene
   @override
   String get launchMinimized => 'Mulai otomatis: Berjalan di latar';
   @override
-  String get showInContextMenu => 'Tampilkan LocalSend di menu konteks';
+  String get showInContextMenu => 'Tampilkan LocalDrop di menu konteks';
   @override
   String get animations => 'Animasi';
 }
@@ -973,7 +973,7 @@ class _Translations$settingsTab$other$id extends Translations$settingsTab$other$
   @override
   String get title => 'Lainnya';
   @override
-  String get support => 'Dukung LocalSend';
+  String get support => 'Dukung LocalDrop';
   @override
   String get donate => 'Donasi';
   @override
@@ -1329,7 +1329,7 @@ class _Translations$dialogs$localNetworkUnauthorized$id extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.';
+      'LocalDrop tidak dapat menemukan perangkat lain tanpa izin untuk memindai jaringan lokal. Mohon berikan izin ini di pengaturan.';
   @override
   String get gotoSettings => 'Pengaturan';
 }
@@ -1471,7 +1471,7 @@ class _Translations$dialogs$sendModeHelp$id extends Translations$dialogs$sendMod
   @override
   String get multiple => 'Mengirim berkas ke beberapa penerima. Pilihan penerima tidak akan dihapus.';
   @override
-  String get link => 'Penerima yang tidak memiliki LocalSend dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban.';
+  String get link => 'Penerima yang tidak memiliki LocalDrop dapat mengunduh berkas yang dipilih dengan membuka tautan di peramban.';
 }
 
 // Path: dialogs.zoom

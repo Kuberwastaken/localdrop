@@ -6,6 +6,7 @@ import 'package:localsend_app/config/init.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/pages/tabs/airdrop_tab.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
@@ -17,7 +18,8 @@ import 'package:refena_flutter/refena_flutter.dart';
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
-  settings(Icons.settings)
+  settings(Icons.settings),
+  airdrop(Icons.wifi_tethering)
   ;
 
   const HomeTab(this.icon);
@@ -32,6 +34,8 @@ enum HomeTab {
         return t.sendTab.title;
       case HomeTab.settings:
         return t.settingsTab.title;
+      case HomeTab.airdrop:
+        return 'AirDrop';
     }
   }
 }
@@ -43,11 +47,7 @@ class HomePage extends StatefulWidget {
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({
-    required this.initialTab,
-    required this.appStart,
-    super.key,
-  });
+  const HomePage({required this.initialTab, required this.appStart, super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage> with Refena {
   Widget build(BuildContext context) {
     Translations.of(context); // rebuild on locale change
     final vm = context.watch(homePageControllerProvider);
+    final tabs = HomeTab.values.where((tab) => tab != HomeTab.airdrop || Platform.isLinux).toList();
 
     return DropTarget(
       onDragEntered: (_) {
@@ -94,12 +95,7 @@ class _HomePageState extends State<HomePage> with Refena {
         if (droppedFiles.isNotEmpty) {
           await ref
               .redux(selectedSendingFilesProvider)
-              .dispatchAsync(
-                AddFilesAction(
-                  files: droppedFiles,
-                  converter: CrossFileConverters.convertXFile,
-                ),
-              );
+              .dispatchAsync(AddFilesAction(files: droppedFiles, converter: CrossFileConverters.convertXFile));
         }
         vm.changeTab(HomeTab.send);
       },
@@ -111,7 +107,7 @@ class _HomePageState extends State<HomePage> with Refena {
                 if (!sizingInformation.isMobile)
                   NavigationRail(
                     selectedIndex: vm.currentTab.index,
-                    onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
+                    onDestinationSelected: (index) => vm.changeTab(tabs[index]),
                     extended: sizingInformation.isDesktop,
                     backgroundColor: Theme.of(context).cardColorWithElevation,
                     leading: sizingInformation.isDesktop
@@ -119,7 +115,7 @@ class _HomePageState extends State<HomePage> with Refena {
                             children: [
                               SizedBox(height: 20),
                               Text(
-                                'LocalSend',
+                                'LocalDrop',
                                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -127,11 +123,8 @@ class _HomePageState extends State<HomePage> with Refena {
                             ],
                           )
                         : null,
-                    destinations: HomeTab.values.map((tab) {
-                      return NavigationRailDestination(
-                        icon: Icon(tab.icon),
-                        label: Text(tab.label),
-                      );
+                    destinations: tabs.map((tab) {
+                      return NavigationRailDestination(icon: Icon(tab.icon), label: Text(tab.label));
                     }).toList(),
                   ),
                 Expanded(
@@ -142,18 +135,12 @@ class _HomePageState extends State<HomePage> with Refena {
                         PageView(
                           controller: vm.controller,
                           physics: const NeverScrollableScrollPhysics(),
-                          children: const [
-                            ReceiveTab(),
-                            SendTab(),
-                            SettingsTab(),
-                          ],
+                          children: [const ReceiveTab(), const SendTab(), const SettingsTab(), if (Platform.isLinux) const AirDropTab()],
                         ),
                         if (_dragAndDropIndicator)
                           Container(
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
+                            decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -172,8 +159,8 @@ class _HomePageState extends State<HomePage> with Refena {
             bottomNavigationBar: sizingInformation.isMobile
                 ? NavigationBar(
                     selectedIndex: vm.currentTab.index,
-                    onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
-                    destinations: HomeTab.values.map((tab) {
+                    onDestinationSelected: (index) => vm.changeTab(tabs[index]),
+                    destinations: tabs.map((tab) {
                       return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )

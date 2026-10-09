@@ -40,7 +40,7 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final Translations$general$sr general = Translations$general$sr.internal(_root);
   @override
@@ -291,7 +291,7 @@ class Translations$networkInterfacesPage$sr extends Translations$networkInterfac
   String get title => 'Mrežni interfejsi';
   @override
   String get info =>
-      'Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.';
+      'Podrazumevano, LocalDrop koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.';
   @override
   String get preview => 'Pregled';
   @override
@@ -416,7 +416,7 @@ class Translations$receiveOptionsPage$sr extends Translations$receiveOptionsPage
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend folder)';
+  String get appDirectory => '(LocalDrop folder)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -495,7 +495,7 @@ class Translations$webSharePage$sr extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN je „${pin}“';
   @override
-  String get encryptionHint => 'LocalSend koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.';
+  String get encryptionHint => 'LocalDrop koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.';
   @override
   String pendingRequests({required Object n}) => 'Zahtevi na čekanju: ${n}';
 }
@@ -519,10 +519,10 @@ class Translations$aboutPage$sr extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'O LocalSend-u';
+  String get title => 'O LocalDrop-u';
   @override
   List<String> get description => [
-    'LocalSend je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.',
+    'LocalDrop je besplatna aplikacija otvorenog koda koja vam omogućava da bezbedno delite fajlove i poruke sa uređajima u blizini preko vaše lokalne mreže, bez potrebe za internet vezom.',
     'Ova aplikacije je dostupna za Android, iOS, macOS, Windows i Linux. Možete pronaći sve opcije za preuzimanje na zvaničnoj početnoj stranici.',
   ];
   @override
@@ -545,7 +545,7 @@ class Translations$donationPage$sr extends Translations$donationPage$en {
   @override
   String get title => 'Donacija';
   @override
-  String get info => 'LocalSend je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.';
+  String get info => 'LocalDrop je besplatan, otvorenog koda i bez ikakvih oglasa. Ako vam se sviđa aplikacija, možete podržati razvoj donacijom.';
   @override
   String donate({required Object amount}) => 'Doniraj ${amount}';
   @override
@@ -748,7 +748,7 @@ class Translations$tray$sr extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Napusti LocalSend';
+  String get close => 'Napusti LocalDrop';
   @override
   String get closeWindows => 'Izađi';
 }
@@ -961,7 +961,7 @@ class Translations$settingsTab$general$sr extends Translations$settingsTab$gener
   @override
   String get launchMinimized => 'Automatsko pokretanje: Pokretanje skriveno';
   @override
-  String get showInContextMenu => 'Prikaži LocalSend u kontekstualnom meniju';
+  String get showInContextMenu => 'Prikaži LocalDrop u kontekstualnom meniju';
   @override
   String get animations => 'Animacije';
 }
@@ -1063,7 +1063,7 @@ class Translations$settingsTab$other$sr extends Translations$settingsTab$other$e
   @override
   String get title => 'Ostalo';
   @override
-  String get support => 'Podržite LocalSend';
+  String get support => 'Podržite LocalDrop';
   @override
   String get donate => 'Doniraj';
   @override
@@ -1419,7 +1419,7 @@ class Translations$dialogs$localNetworkUnauthorized$sr extends Translations$dial
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => 'LocalSend ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.';
+  String get description => 'LocalDrop ne može da pronađe druge uređaje bez dozvole za skeniranje lokalne mreže. Dajte ovu dozvolu u podešavanjima.';
   @override
   String get gotoSettings => 'Podešavanja';
 }
@@ -1561,7 +1561,7 @@ class Translations$dialogs$sendModeHelp$sr extends Translations$dialogs$sendMode
   @override
   String get multiple => 'Slanje fajlova više primalaca. Izbor neće biti očišćen nakon završenog prenosa fajlova.';
   @override
-  String get link => 'Primaoci koji nemaju instaliran LocalSend mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču.';
+  String get link => 'Primaoci koji nemaju instaliran LocalDrop mogu preuzeti izabrane fajlove otvaranjem linka u svom pregledaču.';
 }
 
 // Path: dialogs.zoom

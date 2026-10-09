@@ -1,379 +1,252 @@
-name: Release Draft
+name: Build LocalDrop release
 
 on:
   workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: '3.41.9'
+
+concurrency:
+  group: localdrop-release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  # Each platform build lives in its own reusable workflow (also dispatchable standalone),
-  # so the release build and the individual workflows cannot drift apart.
-  # Each called workflow computes the version from pubspec.yaml itself.
-  build_apk:
-    uses: ./.github/workflows/build_android_apk.yml
-    secrets: inherit
+  checks:
+    uses: ./.github/workflows/ci.yml
 
-  build_tar_x86_64:
-    uses: ./.github/workflows/build_linux_tar_x64.yml
-
-  build_tar_arm_64:
-    uses: ./.github/workflows/build_linux_tar_arm64.yml
-
-  build_deb_x86_64:
-    uses: ./.github/workflows/build_linux_deb_x64.yml
-
-  build_deb_arm_64:
-    uses: ./.github/workflows/build_linux_deb_arm64.yml
-
-  build_appimage_x86_64:
-    uses: ./.github/workflows/build_linux_appimage_x64.yml
-
-  build_windows_zip_x86_64:
-    uses: ./.github/workflows/build_windows_zip_x64.yml
-    secrets: inherit
-    permissions:
-      id-token: write # OIDC token for Azure login
-      contents: read
-
-  build_windows_zip_arm_64:
-    uses: ./.github/workflows/build_windows_zip_arm64.yml
-    secrets: inherit
-    permissions:
-      id-token: write # OIDC token for Azure login
-      contents: read
-
-  build_windows_exe_x86_64:
-    uses: ./.github/workflows/build_windows_exe.yml
-    secrets: inherit
-    permissions:
-      id-token: write # OIDC token for Azure login
-      contents: read
-
-  build_cli_linux:
-    uses: ./.github/workflows/build_linux_cli.yml
-
-  build_cli_windows_exe:
-    uses: ./.github/workflows/build_windows_cli_exe.yml
-    secrets: inherit
-    permissions:
-      id-token: write # OIDC token for Azure login
-      contents: read
-
-  release:
-    needs:
-      - build_apk
-      - build_tar_x86_64
-      - build_tar_arm_64
-      - build_deb_x86_64
-      - build_deb_arm_64
-      - build_appimage_x86_64
-      - build_windows_zip_x86_64
-      - build_windows_zip_arm_64
-      - build_windows_exe_x86_64
-      - build_cli_linux
-      - build_cli_windows_exe
+  version:
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v6
-
-      - name: Get version from pubspec.yaml
-        id: get_version
+      - id: version
+        name: Validate release version
+        shell: bash
         run: |
           VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          test -n "$VERSION"
+          if [[ "$GITHUB_REF_TYPE" == tag && "$GITHUB_REF_NAME" != "v$VERSION" ]]; then
+            echo "Tag must match app version: v$VERSION" >&2
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Draft release
-        id: draft_release
-        uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  windows:
+    needs: [checks, version]
+    runs-on: windows-latest
+    steps:
+      - name: Enable long paths
+        run: git config --system core.longpaths true
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
         with:
-          tag: v${{ steps.get_version.outputs.version }}
-          name: v${{ steps.get_version.outputs.version }}
-
-      # APK
-      - name: Download apk file
-        uses: actions/download-artifact@v7
-        with:
-          name: apk-result
-          path: apk-result
-
-      - name: Copy apk file to root
-        run: cp apk-result/*.apk .
-
-      - name: Upload Release Asset (arm32v7)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: app-armeabi-v7a-release.apk
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-android-arm32v7.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      - name: Upload Release Asset (arm64v8)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: app-arm64-v8a-release.apk
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-android-arm64v8.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      - name: Upload Release Asset (x64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: app-x86_64-release.apk
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-android-x64.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      # TAR.GZ (x86_64)
-      - name: Download tar.gz file
-        uses: actions/download-artifact@v7
-        with:
-          name: tar-gz-x86-64-result
-          path: tar-gz-x86-64-result
-
-      - name: List files in tar.gz-directory
-        run: ls -l tar-gz-x86-64-result
-
-      - name: Copy tar.gz file to root
-        run: cp tar-gz-x86-64-result/* result.tar.gz
-
-      - name: Upload Release Asset (tar.gz)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.tar.gz
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.tar.gz
-          asset_content_type: application/gzip
-
-      # TAR.GZ (arm_64)
-      - name: Download tar.gz file
-        uses: actions/download-artifact@v7
-        with:
-          name: tar-gz-arm-64-result
-          path: tar-gz-arm-64-result
-
-      - name: List files in tar.gz-directory
-        run: ls -l tar-gz-arm-64-result
-
-      - name: Copy tar.gz file to root
-        run: cp tar-gz-arm-64-result/* result.tar.gz
-
-      - name: Upload Release Asset (tar.gz)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.tar.gz
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.tar.gz
-          asset_content_type: application/gzip
-
-      # DEB (x86_64)
-      - name: Download deb file
-        uses: actions/download-artifact@v7
-        with:
-          name: deb-x86-64-result
-          path: deb-x86-64-result
-
-      - name: Copy deb file to root
-        run: cp deb-x86-64-result/*.deb result.deb
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.deb
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.deb
-          asset_content_type: application/vnd.debian.binary-package
-
-      # DEB (arm_64)
-      - name: Download deb file
-        uses: actions/download-artifact@v7
-        with:
-          name: deb-arm-64-result
-          path: deb-arm-64-result
-
-      - name: Copy deb file to root
-        run: cp deb-arm-64-result/*.deb result.deb
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.deb
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.deb
-          asset_content_type: application/vnd.debian.binary-package
-
-      # APPIMAGE (x86_64)
-      - name: Download AppImage file
-        uses: actions/download-artifact@v7
-        with:
-          name: appimage-x86-64-result
-          path: appimage-x86-64-result
-
-      - name: List files in appimage-directory
-        run: ls -l appimage-x86-64-result
-
-      - name: Copy AppImage file to root
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - name: Configure FOSS build
+        shell: bash
+        run: sh support/scripts/remove_proprietary_dependencies.sh
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Resolve dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Build Windows app
+        working-directory: app
+        run: flutter build windows --release --no-pub
+      - name: Package portable Windows app
+        shell: pwsh
         run: |
-          for file in appimage-x86-64-result/*; do
-            if [[ $file == *.AppImage && $file != *.AppImage.zsync ]]; then
-              cp "$file" result.AppImage
-            fi
+          $bundle = 'app/build/windows/x64/runner/Release'
+          Copy-Item -LiteralPath LICENSE, NOTICE -Destination $bundle
+          Copy-Item support/build/windows/x64/*.dll -Destination $bundle
+          '{}' | Set-Content -Encoding utf8 "$bundle/settings.json"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Compress-Archive -Path "$bundle/*" -DestinationPath 'dist/LocalDrop-${{ needs.version.outputs.version }}-windows-x86-64.zip'
+      - uses: actions/upload-artifact@v6
+        with:
+          name: LocalDrop-windows
+          path: dist/*
+          if-no-files-found: error
+
+  linux:
+    needs: [checks, version]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - name: Configure FOSS build
+        run: sh support/scripts/remove_proprietary_dependencies.sh
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Resolve dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Build Linux app
+        working-directory: app
+        run: flutter build linux --release --no-pub
+      - name: Package Linux app and AirDrop bridge
+        shell: bash
+        run: |
+          BUNDLE=app/build/linux/x64/release/bundle
+          cp LICENSE NOTICE "$BUNDLE/"
+          cp -R support/airdrop "$BUNDLE/airdrop"
+          mkdir -p dist
+          tar -czf 'dist/LocalDrop-${{ needs.version.outputs.version }}-linux-x86-64.tar.gz' -C "$BUNDLE" .
+      - uses: actions/upload-artifact@v6
+        with:
+          name: LocalDrop-linux
+          path: dist/*
+          if-no-files-found: error
+
+  android:
+    needs: [checks, version]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - name: Configure FOSS build
+        run: sh support/scripts/remove_proprietary_dependencies.sh
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Configure LocalDrop APK signing key
+        shell: bash
+        env:
+          LOCALDROP_ANDROID_KEYSTORE: ${{ secrets.LOCALDROP_ANDROID_KEYSTORE }}
+          LOCALDROP_ANDROID_KEY_PASSWORD: ${{ secrets.LOCALDROP_ANDROID_KEY_PASSWORD }}
+        run: |
+          if [[ -z "$LOCALDROP_ANDROID_KEYSTORE" || -z "$LOCALDROP_ANDROID_KEY_PASSWORD" ]]; then
+            echo 'Set LOCALDROP_ANDROID_KEYSTORE and LOCALDROP_ANDROID_KEY_PASSWORD repository secrets before building APKs.' >&2
+            exit 1
+          fi
+          printf '%s' "$LOCALDROP_ANDROID_KEYSTORE" | base64 --decode > "$RUNNER_TEMP/localdrop.jks"
+          printf 'storeFile=%s\nstorePassword=%s\nkeyPassword=%s\nkeyAlias=localdrop\n' \
+            "$RUNNER_TEMP/localdrop.jks" "$LOCALDROP_ANDROID_KEY_PASSWORD" "$LOCALDROP_ANDROID_KEY_PASSWORD" \
+            > app/android/key.properties
+      - name: Resolve dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Build Android APKs
+        working-directory: app
+        run: flutter build apk --release --split-per-abi --no-pub
+      - name: Name APKs
+        shell: bash
+        run: |
+          mkdir -p dist
+          for ABI in armeabi-v7a arm64-v8a x86_64; do
+            cp "app/build/app/outputs/flutter-apk/app-$ABI-release.apk" \
+              "dist/LocalDrop-${{ needs.version.outputs.version }}-android-$ABI.apk"
           done
-
-      - name: Upload Release Asset (AppImage)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v6
         with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.AppImage
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage
-          asset_content_type: application/x-appimage
+          name: LocalDrop-android
+          path: dist/*
+          if-no-files-found: error
 
-      # WINDOWS ZIP (x86_64)
-      - name: Download windows zip file
-        uses: actions/download-artifact@v7
+  macos:
+    needs: [checks, version]
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
         with:
-          name: windows-zip-x86-64-result
-          path: windows-zip-x86-64-result
-
-      - name: Copy zip file to root
-        run: cp windows-zip-x86-64-result/*.zip result.zip
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - name: Configure FOSS build
+        run: sh support/scripts/remove_proprietary_dependencies.sh
+      - name: Disable developer signing for community bundle
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          p = Path('app/macos/Runner.xcodeproj/project.pbxproj')
+          s = p.read_text()
+          s = re.sub(r'CODE_SIGN_STYLE = (Automatic|Manual);',
+                     'CODE_SIGN_STYLE = Manual; CODE_SIGNING_ALLOWED = NO; CODE_SIGNING_REQUIRED = NO;', s)
+          p.write_text(s)
+          PY
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Resolve dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Build macOS app
+        working-directory: app
+        run: flutter build macos --release --no-pub
+      - name: Package unsigned macOS app
+        run: |
+          mkdir -p dist/package
+          cp -R app/build/macos/Build/Products/Release/LocalDrop.app dist/package/
+          cp LICENSE NOTICE dist/package/
+          ditto -c -k --sequesterRsrc --keepParent dist/package \
+            'dist/LocalDrop-${{ needs.version.outputs.version }}-macos-arm-64.zip'
+          rm -rf dist/package
+      - uses: actions/upload-artifact@v6
         with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.zip
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-windows-x86-64.zip
-          asset_content_type: application/zip
+          name: LocalDrop-macos
+          path: dist/*.zip
+          if-no-files-found: error
 
-      # WINDOWS ZIP (arm_64)
-      - name: Download windows zip file
-        uses: actions/download-artifact@v7
+  cli:
+    needs: [checks, version]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            platform: linux-x86-64
+          - os: windows-latest
+            platform: windows-x86-64
+          - os: macos-14
+            platform: macos-arm-64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@v2
+      - name: Build LocalDrop CLI
+        run: cargo build --locked --release --package localsend-cli --bin localdrop-cli
+      - name: Package CLI (Unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          mkdir -p dist/package
+          cp target/release/localdrop-cli LICENSE NOTICE dist/package/
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            cp -R support/airdrop dist/package/airdrop
+          fi
+          tar -czf 'dist/LocalDrop-CLI-${{ needs.version.outputs.version }}-${{ matrix.platform }}.tar.gz' -C dist/package .
+      - name: Package CLI (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist/package | Out-Null
+          Copy-Item -LiteralPath target/release/localdrop-cli.exe, LICENSE, NOTICE -Destination dist/package
+          Compress-Archive -Path dist/package/* -DestinationPath 'dist/LocalDrop-CLI-${{ needs.version.outputs.version }}-${{ matrix.platform }}.zip'
+      - uses: actions/upload-artifact@v6
         with:
-          name: windows-zip-arm-64-result
-          path: windows-zip-arm-64-result
-
-      - name: Copy zip file to root
-        run: cp windows-zip-arm-64-result/*.zip result.zip
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.zip
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-windows-arm-64.zip
-          asset_content_type: application/zip
-
-      # WINDOWS EXE (x86_64)
-      - name: Download windows exe file
-        uses: actions/download-artifact@v7
-        with:
-          name: windows-exe-x86-64-result
-          path: windows-exe-x86-64-result
-
-      - name: Copy exe file to root
-        run: cp windows-exe-x86-64-result/*.exe result.exe
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.exe
-          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-windows-x86-64.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
-
-      # LINUX CLI (x86_64)
-      - name: Download linux CLI file
-        uses: actions/download-artifact@v7
-        with:
-          name: cli-linux-x86-64-result
-          path: cli-linux-x86-64-result
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: cli-linux-x86-64-result/LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-x86-64.tar.gz
-          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-x86-64.tar.gz
-          asset_content_type: application/gzip
-
-      # LINUX CLI (arm_64)
-      - name: Download linux CLI file
-        uses: actions/download-artifact@v7
-        with:
-          name: cli-linux-arm-64-result
-          path: cli-linux-arm-64-result
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: cli-linux-arm-64-result/LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-arm-64.tar.gz
-          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-arm-64.tar.gz
-          asset_content_type: application/gzip
-
-      # WINDOWS CLI EXE (x86_64)
-      - name: Download windows CLI exe file
-        uses: actions/download-artifact@v7
-        with:
-          name: windows-cli-exe-x86-64-result
-          path: windows-cli-exe-x86-64-result
-
-      - name: Copy CLI exe file to root
-        run: cp windows-cli-exe-x86-64-result/*.exe result-cli.exe
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result-cli.exe
-          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-windows-x86-64.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
-
-      # WINDOWS CLI EXE (arm_64)
-      - name: Download windows CLI exe file
-        uses: actions/download-artifact@v7
-        with:
-          name: windows-cli-exe-arm-64-result
-          path: windows-cli-exe-arm-64-result
-
-      - name: Copy CLI exe file to root
-        run: cp windows-cli-exe-arm-64-result/*.exe result-cli.exe
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result-cli.exe
-          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-windows-arm-64.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
+          name: LocalDrop-CLI-${{ matrix.platform }}
+          path: |
+            dist/*.tar.gz
+            dist/*.zip
+          if-no-files-found: error

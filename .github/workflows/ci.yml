@@ -1,6 +1,7 @@
-name: CI
+name: LocalDrop CI
 
 on:
+  workflow_call:
   push:
     branches: [main]
   pull_request:
@@ -9,7 +10,17 @@ on:
 env:
   FLUTTER_VERSION: "3.41.9"
 
+permissions:
+  contents: read
+
 jobs:
+  airdrop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Test AirDrop bridge and receiver contracts
+        run: python3 -m unittest discover -s support/airdrop/tests -v
+
   format:
     runs-on: ubuntu-latest
 
@@ -70,7 +81,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Setup Rust
-        run: rustup toolchain install --profile minimal # version from rust-toolchain.toml
+        run: rustup show # installs the pinned version from rust-toolchain.toml
       - name: Cache
         uses: Swatinem/rust-cache@v2
 
@@ -182,4 +193,3 @@ jobs:
           else
             echo "Toolchain versions match."
           fi
-

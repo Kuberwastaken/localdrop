@@ -40,7 +40,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'LocalDrop';
   @override
   late final Translations$general$zh_TW general = Translations$general$zh_TW.internal(_root);
   @override
@@ -288,7 +288,7 @@ class Translations$networkInterfacesPage$zh_TW extends Translations$networkInter
   @override
   String get title => '網路介面';
   @override
-  String get info => 'LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。';
+  String get info => 'LocalDrop 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。';
   @override
   String get preview => '預覽';
   @override
@@ -413,7 +413,7 @@ class Translations$receiveOptionsPage$zh_TW extends Translations$receiveOptionsP
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend 資料夾)';
+  String get appDirectory => '(LocalDrop 資料夾)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -492,7 +492,7 @@ class Translations$webSharePage$zh_TW extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN 碼是「${pin}」';
   @override
-  String get encryptionHint => 'LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。';
+  String get encryptionHint => 'LocalDrop 使用自簽署憑證。您需要在瀏覽器中接受它。';
   @override
   String pendingRequests({required Object n}) => '待處理的要求：${n}';
 }
@@ -516,10 +516,10 @@ class Translations$aboutPage$zh_TW extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => '關於 LocalSend';
+  String get title => '關於 LocalDrop';
   @override
   List<String> get description => [
-    'LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的分享檔案和訊息，無需網際網路連線。',
+    'LocalDrop 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的分享檔案和訊息，無需網際網路連線。',
     '此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。',
   ];
   @override
@@ -542,7 +542,7 @@ class Translations$donationPage$zh_TW extends Translations$donationPage$en {
   @override
   String get title => '贊助';
   @override
-  String get info => 'LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。';
+  String get info => 'LocalDrop 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。';
   @override
   String donate({required Object amount}) => '贊助 ${amount}';
   @override
@@ -662,7 +662,7 @@ class Translations$tray$zh_TW extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => '退出 LocalSend';
+  String get close => '退出 LocalDrop';
   @override
   String get closeWindows => '離開';
 }
@@ -873,7 +873,7 @@ class Translations$settingsTab$general$zh_TW extends Translations$settingsTab$ge
   @override
   String get launchMinimized => '自動啟動至系統匣';
   @override
-  String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 LocalSend';
+  String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 LocalDrop';
   @override
   String get animations => '動畫';
 }
@@ -975,7 +975,7 @@ class Translations$settingsTab$other$zh_TW extends Translations$settingsTab$othe
   @override
   String get title => '其他';
   @override
-  String get support => '支持 LocalSend';
+  String get support => '支持 LocalDrop';
   @override
   String get donate => '贊助';
   @override
@@ -1327,7 +1327,7 @@ class Translations$dialogs$localNetworkUnauthorized$zh_TW extends Translations$d
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => '在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。';
+  String get description => '在未取得掃描區域網路權限的狀況下 LocalDrop 無法找到其他裝置，請在設定中授予此權限。';
   @override
   String get gotoSettings => '設定';
 }
@@ -1469,7 +1469,7 @@ class Translations$dialogs$sendModeHelp$zh_TW extends Translations$dialogs$sendM
   @override
   String get multiple => '傳送檔案給多位接收者；檔案傳輸完成後，系統不會清除選取項目。';
   @override
-  String get link => '未安裝 LocalSend 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。';
+  String get link => '未安裝 LocalDrop 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。';
 }
 
 // Path: dialogs.zoom
