@@ -30,7 +30,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: version
         name: Validate release version
         shell: bash
@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Enable long paths
         run: git config --system core.longpaths true
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
@@ -89,7 +89,7 @@ jobs:
     needs: [checks, version]
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install desktop dependencies
         run: |
           sudo apt-get update
@@ -130,7 +130,7 @@ jobs:
     needs: [checks, version]
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -188,7 +188,7 @@ jobs:
       # connectivity_plus needs NWPath APIs from the macOS 26 SDK.
       DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Verify Xcode SDK
         run: xcodebuild -version && xcrun --sdk macosx --show-sdk-version
       - uses: subosito/flutter-action@v2
@@ -310,7 +310,7 @@ jobs:
             platform: macos-arm-64
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install pinned Rust toolchain
         run: rustup show
       - uses: Swatinem/rust-cache@v2
