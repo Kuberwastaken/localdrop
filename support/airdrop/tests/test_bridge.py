@@ -41,6 +41,14 @@ class BridgeTests(unittest.TestCase):
         self.assertEqual(result["reason"], "unsupported")
         run.assert_not_called()
 
+    def test_python_310_probe_reports_prerequisite_before_radio_checks(self):
+        with patch.object(bridge_mod.platform, "system", return_value="Linux"), patch.object(bridge_mod.sys, "version_info", (3, 10, 12)), patch.object(self.bridge, "helper") as helper:
+            result = self.bridge.probe()
+        self.assertFalse(result["available"])
+        self.assertEqual(result["reason"], "missing_dependencies")
+        self.assertIn("Python 3.11", result["detail"])
+        helper.assert_not_called()
+
     def test_peer_parser_ignores_logs_unreachable_and_deduplicates(self):
         parsed = bridge_mod.parse_peers("""some debugging text
 12:34:56:78:90:ab  ? dBm  [fe80::1%awdl0]:8770  Jane's iPhone

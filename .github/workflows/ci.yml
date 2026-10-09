@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Test AirDrop bridge and receiver contracts
         run: python3 -m unittest discover -s support/airdrop/tests -v
+      - name: Test portable FOSS build preparation
+        run: python3 -m unittest discover -s support/scripts/tests -v
 
   format:
     runs-on: ubuntu-latest

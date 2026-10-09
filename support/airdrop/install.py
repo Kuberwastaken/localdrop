@@ -50,6 +50,14 @@ def main():
     args = parser.parse_args()
     if platform.system() != "Linux":
         raise SystemExit("The AirDrop runtime installer requires Linux")
+    if args.install:
+        try:
+            version = subprocess.check_output(["/usr/bin/python3", "-c", "import sys; print('%s.%s' % sys.version_info[:2])"], text=True).strip()
+            major, minor = map(int, version.split("."))
+        except (OSError, subprocess.CalledProcessError, ValueError):
+            raise SystemExit("Cannot verify /usr/bin/python3; the installed launcher requires system Python 3.11 or newer") from None
+        if (major, minor) < (3, 11):
+            raise SystemExit(f"/usr/bin/python3 is {version}; AirDrop requires system Python 3.11 or newer before installation")
     if not shutil.which("git"):
         raise SystemExit("Install git first")
     root = args.build_dir.expanduser().resolve()

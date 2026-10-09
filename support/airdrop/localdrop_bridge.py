@@ -106,6 +106,8 @@ class Bridge:
         result = {"available": False, "platform": platform.system().lower(), "reason": "unsupported", "detail": "AirDrop radio support requires Linux and supported Wi-Fi hardware."}
         if platform.system() != "Linux":
             return result
+        if sys.version_info < (3, 11):
+            return {**result, "reason": "missing_dependencies", "detail": "AirDrop requires Python 3.11 or newer in the system interpreter used by /usr/bin/localdrop-airdrop."}
         missing = [str(self.radio / f) for f in ("omdrop-discoverable", "send-to-peer", "airdrop-send.py") if not (self.radio / f).is_file()]
         receiver_source = self.runtime / "upstream/omdrop-plugin/bin/airdrop-serve.py"
         if not receiver_source.is_file():

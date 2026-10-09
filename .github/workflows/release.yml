@@ -56,6 +56,9 @@ jobs:
       - name: Resolve dependencies
         working-directory: app
         run: flutter pub get
+      - name: Verify FOSS dependency graph
+        shell: bash
+        run: sh support/scripts/remove_proprietary_dependencies.sh --check-resolved
       - name: Build Windows app
         working-directory: app
         run: flutter build windows --release --no-pub
@@ -94,6 +97,9 @@ jobs:
       - name: Resolve dependencies
         working-directory: app
         run: flutter pub get
+      - name: Verify FOSS dependency graph
+        shell: bash
+        run: sh support/scripts/remove_proprietary_dependencies.sh --check-resolved
       - name: Build Linux app
         working-directory: app
         run: flutter build linux --release --no-pub
@@ -145,6 +151,9 @@ jobs:
       - name: Resolve dependencies
         working-directory: app
         run: flutter pub get
+      - name: Verify FOSS dependency graph
+        shell: bash
+        run: sh support/scripts/remove_proprietary_dependencies.sh --check-resolved
       - name: Build Android APKs
         working-directory: app
         run: flutter build apk --release --split-per-abi --no-pub
@@ -189,6 +198,9 @@ jobs:
       - name: Resolve dependencies
         working-directory: app
         run: flutter pub get
+      - name: Verify FOSS dependency graph
+        shell: bash
+        run: sh support/scripts/remove_proprietary_dependencies.sh --check-resolved
       - name: Build macOS app
         working-directory: app
         run: flutter build macos --release --no-pub

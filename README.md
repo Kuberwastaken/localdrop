@@ -79,7 +79,7 @@ key. Never commit signing keys or passwords.
 
 The command-line LocalSend client is built with
 `cargo build --release -p localsend-cli` at the repository root and produces
-`localdrop-cli`. Its send and receive commands use LocalSend transport.
+`localdrop-cli`. Sending and the default receive mode use LocalSend transport.
 
 ## Checks and releases
 

@@ -1,30 +1,9 @@
 #!/bin/sh
+set -eu
 
-# This script removes proprietary dependencies from the project.
-
-cd app
-
-REGEX_A="s/\/\/ \[FOSS_REMOVE_START\]/\/*/"
-REGEX_B="s/\/\/ \[FOSS_REMOVE_END\]/\*\//"
-
-# Remove lines from pubspec.yaml
-sed -i '/# \[FOSS_REMOVE\]/d' pubspec.yaml
-
-# Comment out parts in Dart files
-sed -i "$REGEX_A" lib/config/init.dart
-sed -i "$REGEX_B" lib/config/init.dart
-
-sed -i "$REGEX_A" lib/pages/donation/donation_page.dart
-sed -i "$REGEX_B" lib/pages/donation/donation_page.dart
-
-sed -i "$REGEX_A" lib/pages/donation/donation_page_vm.dart
-sed -i "$REGEX_B" lib/pages/donation/donation_page_vm.dart
-
-# Remove files completely
-rm lib/provider/purchase_provider.dart
-
-# Refer to donationPageNoopVmProvider instead of donationPageVmProvider
-sed -i 's/donationPageVmProvider/donationPageNoopVmProvider/g' lib/pages/donation/donation_page.dart
-
-cd ..
-echo "Proprietary dependencies removed."
+# Preserve the build interface without GNU/BSD sed differences.
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+if command -v python3 >/dev/null 2>&1; then
+  exec python3 "$SCRIPT_DIR/remove_proprietary_dependencies.py" "$@"
+fi
+exec python "$SCRIPT_DIR/remove_proprietary_dependencies.py" "$@"
