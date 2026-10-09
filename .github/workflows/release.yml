@@ -206,6 +206,7 @@ jobs:
           s = p.read_text()
           s = re.sub(r'CODE_SIGN_STYLE = (Automatic|Manual);',
                      'CODE_SIGN_STYLE = Manual; CODE_SIGNING_ALLOWED = NO; CODE_SIGNING_REQUIRED = NO;', s)
+          s = s.replace('= "Apple Development";', '= "-";')
           p.write_text(s)
           PY
       - name: Install pinned Rust toolchain
@@ -247,6 +248,12 @@ jobs:
           while IFS= read -r -d '' FRAMEWORK; do
             codesign --force --sign - --timestamp=none "$FRAMEWORK"
           done < <(find "$APP" -depth -type d -name '*.framework' -print0)
+          # LaunchAtLogin rewrites its embedded helper's Info.plist during the
+          # build. Its old signature must be replaced before signing the parent.
+          while IFS= read -r -d '' HELPER; do
+            codesign --force --sign - --timestamp=none \
+              --preserve-metadata=entitlements "$HELPER"
+          done < <(find "$APP/Contents" -depth -type d -name '*.app' -print0)
           while IFS= read -r -d '' EXTENSION; do
             codesign --force --sign - --timestamp=none \
               --entitlements "$RUNNER_TEMP/localdrop-share.entitlements" "$EXTENSION"
