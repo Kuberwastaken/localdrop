@@ -2,6 +2,12 @@ name: Build LocalDrop release
 
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to build
+        type: choice
+        default: all
+        options: [all, windows, linux, android, macos, cli]
   push:
     tags: ['v*']
 
@@ -12,7 +18,7 @@ env:
   FLUTTER_VERSION: '3.41.9'
 
 concurrency:
-  group: localdrop-release-${{ github.ref }}
+  group: localdrop-release-${{ github.ref }}-${{ inputs.platform || 'all' }}
   cancel-in-progress: false
 
 jobs:
@@ -38,6 +44,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
   windows:
+    if: github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'windows'
     needs: [checks, version]
     runs-on: windows-latest
     steps:
@@ -78,6 +85,7 @@ jobs:
           if-no-files-found: error
 
   linux:
+    if: github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'linux'
     needs: [checks, version]
     runs-on: ubuntu-22.04
     steps:
@@ -118,6 +126,7 @@ jobs:
           if-no-files-found: error
 
   android:
+    if: github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'android'
     needs: [checks, version]
     runs-on: ubuntu-22.04
     steps:
@@ -172,10 +181,16 @@ jobs:
           if-no-files-found: error
 
   macos:
+    if: github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'macos'
     needs: [checks, version]
-    runs-on: macos-14
+    runs-on: macos-15
+    env:
+      # connectivity_plus needs NWPath APIs from the macOS 26 SDK.
+      DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
     steps:
       - uses: actions/checkout@v6
+      - name: Verify Xcode SDK
+        run: xcodebuild -version && xcrun --sdk macosx --show-sdk-version
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
@@ -251,6 +266,12 @@ jobs:
             echo 'LocalDrop exited during macOS startup.' >&2
             exit 1
           fi
+          if grep -q 'Error during init' "$RUNNER_TEMP/localdrop-startup.log"; then
+            cat "$RUNNER_TEMP/localdrop-startup.log"
+            kill "$APP_PID"
+            echo 'LocalDrop reported an initialization error.' >&2
+            exit 1
+          fi
           kill "$APP_PID"
           wait "$APP_PID" || true
       - name: Package community macOS app
@@ -268,6 +289,7 @@ jobs:
           if-no-files-found: error
 
   cli:
+    if: github.event_name != 'workflow_dispatch' || inputs.platform == 'all' || inputs.platform == 'cli'
     needs: [checks, version]
     strategy:
       fail-fast: false
