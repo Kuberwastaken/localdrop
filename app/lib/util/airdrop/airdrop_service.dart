@@ -35,7 +35,8 @@ class _ProcessConnection implements AirDropConnection {
     }
     unawaited(
       process.exitCode.timeout(
-        const Duration(seconds: 55),
+        // Radio teardown and the shared identity window both need cleanup.
+        const Duration(seconds: 150),
         onTimeout: () {
           process.kill();
           return -1;
@@ -163,8 +164,10 @@ class AirDropService {
     try {
       _connection!.write(jsonEncode({...arguments, 'id': id, 'command': command}));
       return await completer.future.timeout(switch (command) {
-        'start' => const Duration(seconds: 120),
-        'stop' => const Duration(seconds: 60),
+        // Existing omdrop identity unlock, radio startup and receiver readiness
+        // each have their own bounded waits; allow the whole startup to finish.
+        'start' => const Duration(minutes: 5),
+        'stop' => const Duration(minutes: 2),
         _ => timeout,
       });
     } finally {
