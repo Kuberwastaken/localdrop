@@ -1,4 +1,12 @@
-## Unreleased
+## LocalDrop 1.0.0 (2026-10-09)
+
+- Independent LocalSend fork with LocalDrop names, platform identifiers and a new icon.
+- Linux AirDrop discovery, file sending and approved receiving through the omdrop OWL or Broadcom radio backend.
+- Five-minute AirDrop windows, explicit Accept/Reject and automatic rejection of unanswered requests.
+- Pinned runtime installer, dependency checks and existing omdrop identity support.
+- LocalDrop platform builds and a persistent Android release signing key.
+
+## LocalSend upstream history — unreleased at fork
 
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)

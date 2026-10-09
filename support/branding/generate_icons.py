@@ -50,6 +50,9 @@ def save(path, size, **kwargs):
 
 def main():
     assets = ROOT/'app/assets/img'
+    (ROOT/'app/android/app/src/main/res/values/ic_launcher_background.xml').write_text(
+        '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n'
+        f'    <color name="ic_launcher_background">{TEAL}</color>\n</resources>\n', encoding='utf-8')
     for size in [32, 128, 256, 512]:
         save(assets/f'logo-{size}.png', size)
     for size, color in [(32, WHITE), (512, WHITE), (32, '#000000')]:

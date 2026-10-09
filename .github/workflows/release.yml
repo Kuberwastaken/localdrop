@@ -192,7 +192,56 @@ jobs:
       - name: Build macOS app
         working-directory: app
         run: flutter build macos --release --no-pub
-      - name: Package unsigned macOS app
+      - name: Apply and verify local ad-hoc signatures
+        shell: bash
+        run: |
+          # Apple Silicon requires valid code signatures. Ad-hoc signatures
+          # provide that integrity check without a Developer ID or notarization.
+          APP=app/build/macos/Build/Products/Release/LocalDrop.app
+          python3 - <<'PY'
+          import os
+          import plistlib
+          from pathlib import Path
+          for source, name in [
+              ('app/macos/Runner/Release.entitlements', 'localdrop-main.entitlements'),
+              ('app/macos/ShareExtension/ShareExtension.entitlements', 'localdrop-share.entitlements'),
+          ]:
+              entitlements = plistlib.loads(Path(source).read_bytes())
+              groups = entitlements.get('com.apple.security.application-groups', [])
+              entitlements['com.apple.security.application-groups'] = [
+                  group.replace('$(AppIdentifierPrefix)', '').replace('$(TeamIdentifierPrefix)', '')
+                  for group in groups
+              ]
+              Path(os.environ['RUNNER_TEMP'], name).write_bytes(plistlib.dumps(entitlements))
+          PY
+          while IFS= read -r -d '' LIBRARY; do
+            codesign --force --sign - --timestamp=none "$LIBRARY"
+          done < <(find "$APP" -type f -name '*.dylib' -print0)
+          while IFS= read -r -d '' FRAMEWORK; do
+            codesign --force --sign - --timestamp=none "$FRAMEWORK"
+          done < <(find "$APP" -depth -type d -name '*.framework' -print0)
+          while IFS= read -r -d '' EXTENSION; do
+            codesign --force --sign - --timestamp=none \
+              --entitlements "$RUNNER_TEMP/localdrop-share.entitlements" "$EXTENSION"
+          done < <(find "$APP" -depth -type d -name '*.appex' -print0)
+          codesign --force --sign - --timestamp=none \
+            --entitlements "$RUNNER_TEMP/localdrop-main.entitlements" "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+      - name: Check macOS app startup
+        shell: bash
+        run: |
+          APP=app/build/macos/Build/Products/Release/LocalDrop.app
+          "$APP/Contents/MacOS/LocalDrop" > "$RUNNER_TEMP/localdrop-startup.log" 2>&1 &
+          APP_PID=$!
+          sleep 10
+          if ! kill -0 "$APP_PID" 2>/dev/null; then
+            cat "$RUNNER_TEMP/localdrop-startup.log"
+            echo 'LocalDrop exited during macOS startup.' >&2
+            exit 1
+          fi
+          kill "$APP_PID"
+          wait "$APP_PID" || true
+      - name: Package community macOS app
         run: |
           mkdir -p dist/package
           cp -R app/build/macos/Build/Products/Release/LocalDrop.app dist/package/

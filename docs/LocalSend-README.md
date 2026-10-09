@@ -11,9 +11,9 @@
 [packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
 [packaging-link]: https://repology.org/project/localsend/versions
 
-[Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
+[Homepage][homepage] â€¢ [Discord][discord] â€¢ [GitHub][github] â€¢ [Codeberg][codeberg]
 
-[English (Default)](README.md) • [中文](/support/readme/README_ZH.md)
+[English (Default)](README.md) â€¢ [ä¸­æ–‡](/support/readme/README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -162,7 +162,7 @@ To compile LocalSend from the source code, follow these steps:
 
 > [!NOTE]
 > LocalSend currently requires an older Flutter version (specified in [.fvmrc](.fvmrc))
-> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
+> and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
 > After installing `fvm`, run `fvm flutter` instead of `flutter`.
 

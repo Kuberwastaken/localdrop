@@ -178,7 +178,10 @@ aa:bb:cc:dd:ee:aa  ? dBm  [fe80::3%awdl0]:8770  (no response)
             self.bridge.monitor(self.bridge.generation)
         self.assertTrue(self.bridge.active)
         self.assertEqual(self.events, [{"type": "status", "state": "discovering", "detail": "Peer scan failed; retrying: scan timeout"}])
-        self.bridge.stop()
+        receiver = self.bridge.receiver
+        with patch.object(bridge_mod, "terminate") as terminate:
+            self.bridge.stop()
+        terminate.assert_any_call(receiver)
         self.assertFalse(self.bridge.active)
         self.assertEqual(self.events[-1]["state"], "stopped")
 
