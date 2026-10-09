@@ -81,7 +81,7 @@ def main():
     # files and losing the certificate/layout dependencies or attribution.
     shutil.copytree(receiver_source, stage / "upstream/omdrop-plugin", ignore=shutil.ignore_patterns(".git", "__pycache__"))
     own_source = Path(__file__).resolve().parent
-    for name in ("localdrop_bridge.py", "localdrop_receiver.py", "README.md"):
+    for name in ("localdrop_bridge.py", "localdrop_receiver.py", "localdrop_lifetime.py", "README.md"):
         shutil.copy2(own_source / name, stage / name)
     (stage / "pins.json").write_text(json.dumps(PINS, indent=2) + "\n")
     launcher = root / "localdrop-airdrop"

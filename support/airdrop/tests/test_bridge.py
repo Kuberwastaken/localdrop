@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import plistlib
 import socket
+import subprocess
+import sys
 import tempfile
 import threading
 import time
@@ -12,6 +14,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 
 def module(name):
@@ -23,6 +26,7 @@ def module(name):
 
 bridge_mod = module("localdrop_bridge")
 receiver_mod = module("localdrop_receiver")
+lifetime_mod = module("localdrop_lifetime")
 
 
 class BridgeTests(unittest.TestCase):
@@ -189,7 +193,7 @@ aa:bb:cc:dd:ee:aa  ? dBm  [fe80::3%awdl0]:8770  (no response)
         receiver = self.bridge.receiver
         with patch.object(bridge_mod, "terminate") as terminate:
             self.bridge.stop()
-        terminate.assert_any_call(receiver)
+        terminate.assert_any_call(receiver, grace=12)
         self.assertFalse(self.bridge.active)
         self.assertEqual(self.events[-1]["state"], "stopped")
 
@@ -234,6 +238,141 @@ aa:bb:cc:dd:ee:aa  ? dBm  [fe80::3%awdl0]:8770  (no response)
             result = self.bridge.peers()
         self.assertEqual(result, {"peers": []})
         self.assertEqual(self.events, [])
+
+    def test_configured_1password_identity_arms_and_clears_upstream_window(self):
+        with tempfile.TemporaryDirectory() as temp:
+            window = Path(temp) / "window"
+            def identity(*args, **kwargs):
+                if args[0] == "begin":
+                    return {"seq": "7"}
+                if args[0] == "window":
+                    window.write_text("source=1password\n")
+                    (window.parent / "state").write_text("seq=7\n")
+                    return {"source": "1password", "expiry_in": "120"}
+                if args[0] == "stop-begin":
+                    (window.parent / "state").write_text("seq=8\n")
+                if args[0] == "stop-end":
+                    window.unlink()
+                return {}
+            with patch.object(self.bridge, "identity", side_effect=identity) as identity_call, patch.object(self.bridge, "identity_paths", return_value=(Path(temp) / "identity.lock", window)), patch.object(self.bridge, "acquire_identity_lock", return_value=123), patch.object(self.bridge, "release_identity_lock", side_effect=lambda: setattr(self.bridge, "identity_lock_fd", None)):
+                before = time.time()
+                self.bridge.prepare_identity("LocalDrop")
+                self.assertEqual(self.bridge.identity_source, "1password")
+                self.assertTrue(self.bridge.owned_identity)
+                self.assertGreaterEqual(self.bridge.identity_expiry, before + 119)
+                self.assertLess(self.bridge.identity_expiry, time.time() + 120)
+                self.bridge.clear_identity()
+                self.assertFalse(self.bridge.owned_identity)
+                self.assertEqual([call.args for call in identity_call.call_args_list], [("begin", "--name", "LocalDrop"), ("window", "--seq", "7"), ("stop-begin",), ("stop-end",)])
+
+    def test_existing_upstream_identity_window_is_not_adopted_or_cleared(self):
+        with tempfile.TemporaryDirectory() as temp:
+            window = Path(temp) / "window"
+            window.write_text("source=disk\n")
+            with patch.object(self.bridge, "identity", return_value={"seq": "7"}) as identity_call, patch.object(self.bridge, "identity_paths", return_value=(Path(temp) / "identity.lock", window)), patch.object(self.bridge, "acquire_identity_lock", return_value=123), patch.object(self.bridge, "release_identity_lock") as release, self.assertRaises(RuntimeError):
+                self.bridge.prepare_identity("LocalDrop")
+            self.assertEqual(len(identity_call.call_args_list), 1)
+            self.assertFalse(self.bridge.owned_identity)
+            self.assertTrue(window.exists())
+            release.assert_called_once()
+
+    def test_identity_fallback_notice_persists_in_discovery_details(self):
+        with tempfile.TemporaryDirectory() as temp:
+            window = Path(temp) / "window"
+            notice = '1Password locked; using self-signed certificates. Peers must be in Everyone mode.'
+            with patch.object(self.bridge, "identity", side_effect=[{"seq": "1", "notice": notice}, {"source": "self-signed"}]), patch.object(self.bridge, "identity_paths", return_value=(Path(temp) / "identity.lock", window)), patch.object(self.bridge, "acquire_identity_lock", return_value=123):
+                self.bridge.prepare_identity("LocalDrop")
+            self.assertEqual(self.bridge.identity_source, "self-signed")
+            self.assertIn(notice, self.bridge.discovery_detail("AirDrop enabled"))
+            self.assertIn(notice, self.bridge.discovery_detail("Peer scan failed; retrying"))
+
+    def test_stop_does_not_clear_replacement_identity_or_radio_session(self):
+        self.bridge.owned_identity = True
+        self.bridge.owned_radio = True
+        self.bridge.identity_lock_fd = 123
+        with patch.object(self.bridge, "identity_is_current", return_value=False), patch.object(self.bridge, "identity") as identity, patch.object(self.bridge, "helper") as helper:
+            self.bridge.stop()
+        identity.assert_not_called()
+        helper.assert_not_called()
+        self.assertFalse(self.bridge.owned_identity)
+        self.assertFalse(self.bridge.owned_radio)
+
+    def test_lock_timeout_stops_local_processes_and_rejects_offers(self):
+        self.bridge.active = True
+        self.bridge.owned_identity = True
+        self.bridge.owned_radio = True
+        sender, receiver = Mock(), Mock()
+        self.bridge.sender, self.bridge.receiver = sender, receiver
+        pending = {"event": threading.Event(), "accept": True, "deadline": time.monotonic() + 45}
+        self.bridge.offers["pending"] = pending
+        with patch.object(self.bridge, "acquire_identity_lock", side_effect=RuntimeError("lock busy")), patch.object(bridge_mod, "terminate") as terminate, patch.object(self.bridge, "helper") as helper, patch.object(self.bridge, "identity") as identity, self.assertRaisesRegex(RuntimeError, "retry Stop"):
+            self.bridge.stop()
+        terminate.assert_any_call(sender, grace=12)
+        terminate.assert_any_call(receiver, grace=12)
+        self.assertFalse(pending["accept"])
+        self.assertTrue(pending["event"].is_set())
+        self.assertEqual(self.bridge.offers, {})
+        self.assertIsNone(self.bridge.receiver)
+        self.assertIsNone(self.bridge.sender)
+        self.assertTrue(self.bridge.owned_radio)
+        self.assertTrue(self.bridge.owned_identity)
+        helper.assert_not_called()
+        identity.assert_not_called()
+        self.assertEqual(self.events[-1]["state"], "discovering")
+
+    def test_radio_stop_failure_preserves_identity_window_for_retry(self):
+        self.bridge.owned_identity = True
+        self.bridge.owned_radio = True
+        self.bridge.identity_lock_fd = 123
+        with patch.object(self.bridge, "identity_is_current", return_value=True), patch.object(self.bridge, "helper", return_value=(1, "", "stop failed")), patch.object(self.bridge, "clear_identity") as clear_identity, self.assertRaisesRegex(RuntimeError, "retry Stop"):
+            self.bridge.stop()
+        clear_identity.assert_not_called()
+        self.assertTrue(self.bridge.owned_identity)
+        self.assertTrue(self.bridge.owned_radio)
+
+    def test_stop_end_failure_retains_bumped_sequence_for_retry(self):
+        self.bridge.owned_identity = True
+        self.bridge.identity_seq = 7
+        self.bridge.identity_lock_fd = 123
+        with tempfile.TemporaryDirectory() as temp:
+            window = Path(temp) / "window"
+            window.write_text("source=disk\n")
+            state = window.parent / "state"
+            state.write_text("seq=7\n")
+            failed = [False]
+            def identity(*args, **kwargs):
+                if args[0] == "stop-begin":
+                    state.write_text("seq=" + str(self.bridge.identity_seq + 1) + "\n")
+                if args[0] == "stop-end":
+                    if not failed[0]:
+                        failed[0] = True
+                        raise RuntimeError("stop-end timed out")
+                    window.unlink()
+                return {}
+            with patch.object(self.bridge, "identity", side_effect=identity), patch.object(self.bridge, "identity_paths", return_value=(Path(temp) / "identity.lock", window)):
+                with self.assertRaises(RuntimeError):
+                    self.bridge.clear_identity()
+                self.assertEqual(self.bridge.identity_seq, 8)
+                self.assertTrue(self.bridge.owned_identity)
+                self.bridge.clear_identity()
+            self.assertFalse(window.exists())
+            self.assertFalse(self.bridge.owned_identity)
+
+
+class LifetimeTests(unittest.TestCase):
+    def test_hard_deadline_terminates_child_even_without_bridge(self):
+        proc = Mock()
+        proc.wait.side_effect = subprocess.TimeoutExpired("receiver", 10)
+        with patch.dict(os.environ, {"LOCALDROP_SESSION_DEADLINE": "110"}), patch.object(lifetime_mod.time, "time", return_value=100), patch.object(lifetime_mod.sys, "argv", ["localdrop_lifetime.py", "python3", "receiver.py"]), patch.object(lifetime_mod.subprocess, "Popen", return_value=proc) as popen, patch.object(lifetime_mod.signal, "signal"), patch.object(lifetime_mod, "terminate") as terminate:
+            self.assertEqual(lifetime_mod.main(), 124)
+        popen.assert_called_once_with(["python3", "receiver.py"], start_new_session=True)
+        proc.wait.assert_called_once_with(timeout=10)
+        terminate.assert_called_once_with(proc)
+
+    def test_expired_window_does_not_start_child(self):
+        with patch.dict(os.environ, {"LOCALDROP_SESSION_DEADLINE": "90"}), patch.object(lifetime_mod.time, "time", return_value=100), patch.object(lifetime_mod.sys, "argv", ["localdrop_lifetime.py", "python3", "receiver.py"]), patch.object(lifetime_mod.subprocess, "Popen") as popen:
+            self.assertEqual(lifetime_mod.main(), 124)
+        popen.assert_not_called()
 
 
 SOURCE = '''class Handler(Base):

@@ -62,12 +62,29 @@ AirDrop on the Apple device; peer naming/send can use the upstream BLE wake.
 ## Identity and Contacts Only
 
 The receiver and sender retain omdrop's shared `~/.omdrop/keys` identity and
-the active identity cache. Existing omdrop setup, disk identities, and optional
-1Password-backed identity setup therefore continue to work. LocalDrop does not
+the active identity cache. Enabling LocalDrop runs the pinned upstream identity
+`begin` command, then `window` under omdrop's identity lock; stopping runs
+`stop-begin` and `stop-end`. This preserves existing disk identities and
+previously configured 1Password identity setup. LocalDrop does not
 obtain Apple credentials or silently generate an Apple-issued identity.
 Without an Apple identity, the upstream self-signed identity supports peers
 using **Everyone** visibility; Apple **Contacts Only** sending requires a valid
 existing Apple identity recognized by the peer.
+
+If omdrop is already configured for 1Password, enabling AirDrop uses its cached
+identity or requests it through the installed `op` CLI and desktop integration.
+Approve only the prompt you triggered by enabling AirDrop. The upstream fetch
+has a 60-second bound. Missing `op`, a locked account, or dismissed approval
+falls back to the self-signed identity and keeps an explicit Everyone-mode
+notice visible in LocalDrop's discovery status. Configure/import the existing
+Apple identity through omdrop's identity commands first; LocalDrop does not
+create a new account connection. `omdrop identity unlock` can prefill the cache.
+
+The identity selected at start remains fixed for that session. A cached
+identity's hard expiry shortens the session when necessary. Receiver and sender
+run through a separate lifetime guard, so they stop at their deadline even if
+the app process disappears. The monitor also notices an externally stopped or
+replaced identity window; LocalDrop does not clear a replacement session.
 
 Incoming Contacts Only policy remains upstream's certificate-bound signed
 record verification and known-contact hashes. Configure it through your
@@ -84,10 +101,20 @@ stdin line; stdout contains only JSON objects, and stderr contains diagnostics.
 Every command has an `id` echoed in a `response` with `ok`, then either `result`
 or `error`. Operations may complete out of order; match IDs.
 
+Enabling AirDrop can wait for an existing 1Password identity unlock, a system
+authorization prompt, radio startup, and receiver readiness. Each operation is
+bounded; the app allows their cumulative startup and failure-cleanup budget up
+to ten minutes. The discovery window starts when the radio is enabled, rather
+than when you press Start. Incoming consent decisions remain available while
+other commands are pending. Stop allows up to 150 seconds for process, radio,
+and shared identity cleanup. Closing the app requests graceful shutdown and
+allows up to 180 seconds for cleanup before terminating the helper. A failed
+shared cleanup keeps the Stop action available for a safe retry.
+
 | Command | Extra fields | Result |
 | --- | --- | --- |
 | `probe` | none | `available`, `platform`, `reason`, `detail`, optional `backend` |
-| `start` | `name`, existing user-owned `downloadDir`, `seconds` (30–600; default 300) | `started`, `seconds` |
+| `start` | `name`, existing user-owned `downloadDir`, `seconds` (30–600; default 300) | `started`, effective `seconds`, `identitySource`, `identityNotice` |
 | `peers` | none | `peers` snapshot |
 | `send` | scanned `peerId`, `paths` (1–1000 regular files) | `started`; transfer finishes asynchronously |
 | `decide` | `offerId`, boolean `accept` | `decided` |
@@ -117,6 +144,12 @@ LocalDrop can start. Discovery automatically ends within ten minutes; a radio
 helper also enforces its window if the app crashes. LocalDrop cannot promise
 completion of a large transfer beyond the active discoverability window.
 
+Allow up to five minutes for `start` to complete when identity approval and radio
+setup are both needed, and up to two minutes for `stop`. Prefer `shutdown` plus
+process exit over immediately killing the bridge so its identity window can be
+cleared. If an abrupt crash leaves an identity window behind, stop that window
+through `omdrop off` before restarting LocalDrop.
+
 ## Source and licensing
 
 These external programs are fetched at installation and are not vendored into
@@ -143,6 +176,8 @@ python3 -m unittest discover -s support/airdrop/tests -v
 ```
 
 Tests cover protocol validation, peer parsing, explicit consent, expired/repeated
-decisions, upload consent enforcement and source-adapter contracts. Live AWDL
+decisions, upload consent enforcement, identity window ownership, 1Password
+fallback notices, independent process deadlines and source-adapter contracts. Live AWDL
 needs supported Linux radio hardware and an Apple device; offline tests are not
-a claim that an on-air send/receive has been verified on every driver.
+a claim that on-air send/receive or interactive 1Password approval has been
+verified on this development host.

@@ -36,7 +36,7 @@ def parse_peers(output):
     return list(found.values())
 
 
-def terminate(proc):
+def terminate(proc, grace=4):
     if proc is None or proc.poll() is not None:
         return
     try:
@@ -44,7 +44,7 @@ def terminate(proc):
             os.killpg(proc.pid, signal.SIGTERM)
         else:
             proc.terminate()
-        proc.wait(timeout=4)
+        proc.wait(timeout=grace)
     except (OSError, subprocess.TimeoutExpired):
         try:
             if os.name == "posix":
@@ -74,6 +74,13 @@ class Bridge:
         self.active = False
         self.generation = 0
         self.owned_radio = False
+        self.owned_identity = False
+        self.identity_source = None
+        self.identity_notice = ""
+        self.identity_expiry = None
+        self.identity_seq = None
+        self.session_expiry = 0
+        self.identity_lock_fd = None
         self.deadline = 0
         self.name = "LocalDrop"
         self.closing = threading.Event()
@@ -101,6 +108,117 @@ class Bridge:
         if privileged:
             argv.insert(0, "pkexec")
         return self.run(argv, timeout)
+
+    def identity(self, *args, timeout=10):
+        command = self.runtime / "upstream/omdrop-plugin/bin/identity.py"
+        rc, out, err = self.run([sys.executable, str(command), *args], timeout=timeout)
+        if rc != 0:
+            raise RuntimeError((err or out).strip()[-2000:] or "AirDrop identity operation failed")
+        return dict(line.split("=", 1) for line in out.splitlines() if "=" in line)
+
+    def identity_paths(self):
+        runtime = Path(os.environ.get("XDG_RUNTIME_DIR") or f"/run/user/{os.getuid()}")
+        state = runtime / "omdrop"
+        return state / "identity.lock", state / "window"
+
+    def acquire_identity_lock(self):
+        import fcntl
+        lock_path, _ = self.identity_paths()
+        lock_path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        fd = os.open(lock_path, os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
+        deadline = time.monotonic() + 30
+        try:
+            while True:
+                try:
+                    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    return fd
+                except BlockingIOError:
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError("Another omdrop identity operation is still running")
+                    time.sleep(0.1)
+        except Exception:
+            os.close(fd)
+            raise
+
+    def release_identity_lock(self):
+        if self.identity_lock_fd is not None:
+            os.close(self.identity_lock_fd)
+            self.identity_lock_fd = None
+
+    def prepare_identity(self, name):
+        # begin handles legacy migration and uses op only when previously
+        # configured for 1Password; it never obtains an Apple identity itself.
+        prepared = self.identity("begin", "--name", name, timeout=75)
+        seq = prepared.get("seq", "")
+        if not seq.isdigit():
+            raise RuntimeError("Invalid identity preparation response")
+        self.identity_lock_fd = self.acquire_identity_lock()
+        try:
+            _, window_path = self.identity_paths()
+            if window_path.exists():
+                raise RuntimeError("Another omdrop identity window is open; stop it before enabling LocalDrop")
+            armed = self.identity("window", "--seq", seq)
+            self.owned_identity = True
+            self.identity_seq = int(seq)
+            source = armed.get("source")
+            if source not in ("disk", "self-signed", "1password"):
+                raise RuntimeError("Invalid identity window response")
+            self.identity_source = source
+            self.identity_notice = "; ".join(x for x in (prepared.get("notice"), armed.get("notice")) if x)
+            self.identity_expiry = None
+            if source == "1password":
+                remaining = armed.get("expiry_in", "")
+                if not remaining.isdigit() or int(remaining) < 5:
+                    raise RuntimeError("The cached Apple identity expires too soon; unlock it again before enabling AirDrop")
+                # expiry_in is rounded against upstream's integer clock. A
+                # one-second margin avoids extending the hard expiry by the
+                # caller's fractional second or CLI return latency.
+                self.identity_expiry = time.time() + int(remaining) - 1
+        except Exception:
+            try:
+                if self.owned_identity:
+                    self.clear_identity()
+            finally:
+                self.release_identity_lock()
+            raise
+
+    def clear_identity(self):
+        if not self.owned_identity:
+            return
+        acquired = self.identity_lock_fd is None
+        if acquired:
+            self.identity_lock_fd = self.acquire_identity_lock()
+        try:
+            if self.identity_is_current():
+                try:
+                    self.identity("stop-begin")
+                finally:
+                    # stop-begin bumps the shared sequence. Keep the new owner
+                    # token even when stop-end fails, so a retry can finish our
+                    # cleanup without confusing it with a replacement window.
+                    _, window = self.identity_paths()
+                    try:
+                        state = dict(line.split("=", 1) for line in (window.parent / "state").read_text().splitlines() if "=" in line)
+                    except FileNotFoundError:
+                        state = {}
+                    if state.get("seq") == str(self.identity_seq + 1):
+                        self.identity_seq += 1
+                self.identity("stop-end")
+            self.owned_identity = False
+            self.identity_source = None
+            self.identity_expiry = None
+            self.identity_seq = None
+        finally:
+            if acquired:
+                self.release_identity_lock()
+
+    def identity_is_current(self):
+        _, window = self.identity_paths()
+        try:
+            state = dict(line.split("=", 1) for line in (window.parent / "state").read_text().splitlines() if "=" in line)
+        except FileNotFoundError:
+            state = {}
+        return window.exists() and state.get("seq", "0") == str(self.identity_seq)
 
     def probe(self):
         result = {"available": False, "platform": platform.system().lower(), "reason": "unsupported", "detail": "AirDrop radio support requires Linux and supported Wi-Fi hardware."}
@@ -163,16 +281,30 @@ class Bridge:
                 raise RuntimeError("Another AirDrop radio session is running; stop it before enabling LocalDrop")
             self.status("starting", "Enabling the AirDrop radio")
             self.name = name
-            rc, out, err = self.helper("start", str(seconds), privileged=True, timeout=90)
-            if rc != 0:
-                if rc != 5:
-                    # A failed start can leave a partial interface behind.
-                    self.helper("stop", privileged=True, timeout=45)
-                raise RuntimeError((err or out).strip()[-2000:] or "Radio start failed")
-            self.owned_radio = True
+            self.prepare_identity(name)
             try:
                 if self.closing.is_set():
                     raise RuntimeError("Bridge is shutting down")
+                # Hold the upstream identity lock until the receiver and radio
+                # are running, matching omdrop's window/start contract.
+                rc, out, _ = self.helper("status", "--json")
+                if rc != 0 or json.loads(out).get("visible"):
+                    raise RuntimeError("Another AirDrop radio session started while preparing the identity")
+                actual_seconds = seconds
+                if self.identity_expiry is not None:
+                    actual_seconds = min(seconds, max(1, int(self.identity_expiry - time.time())))
+                rc, out, err = self.helper("start", str(actual_seconds), privileged=True, timeout=90)
+                if rc != 0:
+                    if rc != 5:
+                        # A failed start can leave a partial interface behind.
+                        self.helper("stop", privileged=True, timeout=45)
+                    raise RuntimeError((err or out).strip()[-2000:] or "Radio start failed")
+                self.owned_radio = True
+                self.session_expiry = time.time() + actual_seconds
+                if self.identity_expiry is not None:
+                    self.session_expiry = min(self.session_expiry, self.identity_expiry)
+                if self.session_expiry <= time.time() + 1:
+                    raise RuntimeError("The Apple identity expired while starting the radio")
                 self.socket_dir = tempfile.TemporaryDirectory(prefix="localdrop-airdrop-")
                 os.chmod(self.socket_dir.name, 0o700)
                 socket_path = str(Path(self.socket_dir.name) / "consent.sock")
@@ -183,15 +315,17 @@ class Bridge:
                 self.listener.settimeout(1)
                 self.token = secrets.token_hex(32)
                 env = {**os.environ, "LOCALDROP_CONSENT_SOCKET": socket_path, "LOCALDROP_CONSENT_TOKEN": self.token,
-                       "LOCALDROP_RECEIVER": str(self.runtime / "upstream/omdrop-plugin/bin/airdrop-serve.py")}
+                       "LOCALDROP_RECEIVER": str(self.runtime / "upstream/omdrop-plugin/bin/airdrop-serve.py"),
+                       "LOCALDROP_SESSION_DEADLINE": str(self.session_expiry)}
                 self.active = True
                 self.generation += 1
                 session = self.generation
-                self.deadline = time.monotonic() + seconds
+                self.deadline = time.monotonic() + max(0, self.session_expiry - time.time())
                 threading.Thread(target=self.accept_loop, daemon=True).start()
                 # Receiver diagnostics go to stderr; stdout remains JSON only.
                 ready = threading.Event()
-                self.receiver = subprocess.Popen([sys.executable, str(self.runtime / "localdrop_receiver.py"), "--name", name,
+                self.receiver = subprocess.Popen([sys.executable, str(self.runtime / "localdrop_lifetime.py"),
+                                                  sys.executable, str(self.runtime / "localdrop_receiver.py"), "--name", name,
                                                   "--outdir", str(download_dir), "--config", "/dev/null"],
                                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env, start_new_session=True)
                 threading.Thread(target=self.receiver_log, args=(self.receiver, ready), daemon=True).start()
@@ -201,12 +335,19 @@ class Bridge:
                         raise RuntimeError("Bridge is shutting down")
                 if not ready.is_set() or self.receiver.poll() is not None:
                     raise RuntimeError("AirDrop receiver failed to start; see its diagnostic log")
-                self.status("discovering", "AirDrop enabled for " + str(seconds) + " seconds")
+                self.status("discovering", self.discovery_detail("AirDrop enabled for " + str(actual_seconds) + " seconds"))
                 threading.Thread(target=self.monitor, args=(session,), daemon=True).start()
-                return {"started": True, "seconds": seconds}
+                return {"started": True, "seconds": actual_seconds, "identitySource": self.identity_source, "identityNotice": self.identity_notice}
             except Exception:
                 self.stop()
                 raise
+            finally:
+                self.release_identity_lock()
+
+    def discovery_detail(self, detail):
+        if self.identity_notice:
+            return detail + ". " + self.identity_notice
+        return detail
 
     @staticmethod
     def receiver_log(proc, ready):
@@ -314,7 +455,9 @@ class Bridge:
                 raise ValueError("Every send path must be an existing regular file")
             argv = [sys.executable, str(self.radio / "send-to-peer"), "--mac", peer_id, "--name", self.name,
                     "--port", str(self.peer_table[peer_id]["port"]), "--op-timeout", "60", "--wait", "20", "--", *map(str, files)]
-            self.sender = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, start_new_session=True)
+            argv = [sys.executable, str(self.runtime / "localdrop_lifetime.py"), *argv]
+            env = {**os.environ, "LOCALDROP_SESSION_DEADLINE": str(self.session_expiry)}
+            self.sender = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, start_new_session=True, env=env)
             proc = self.sender
             self.emit({"type": "transfer", "direction": "send", "peerId": peer_id, "state": "sending"})
             threading.Thread(target=self.finish_send, args=(proc, peer_id), daemon=True).start()
@@ -325,7 +468,7 @@ class Bridge:
             output, _ = proc.communicate(timeout=600)
             detail = output[-3000:] if proc.returncode else "Transfer sent"
         except subprocess.TimeoutExpired:
-            terminate(proc)
+            terminate(proc, grace=12)
             detail = "Transfer timed out"
         self.emit({"type": "transfer", "direction": "send", "peerId": peer_id,
                    "state": "completed" if proc.returncode == 0 else "failed", "detail": detail})
@@ -336,6 +479,9 @@ class Bridge:
                 if not self.current_session(session):
                     return
                 if time.monotonic() >= self.deadline:
+                    self.stop()
+                    return
+                if self.owned_identity and not self.identity_is_current():
                     self.stop()
                     return
                 if self.receiver is None or self.receiver.poll() is not None:
@@ -349,34 +495,75 @@ class Bridge:
                     if self.current_session(session):
                         # Discovery remains enabled after a recoverable scan
                         # failure, so the UI must retain its Stop action.
-                        self.status("discovering", "Peer scan failed; retrying: " + str(exc))
+                        self.status("discovering", self.discovery_detail("Peer scan failed; retrying: " + str(exc)))
 
     def stop(self):
         with self.lifecycle:
             self.active = False
             self.generation += 1
-            with self.offer_lock:
-                for pending in self.offers.values():
-                    pending["accept"] = False
-                    pending["event"].set()
-            terminate(self.sender)
-            terminate(self.receiver)
-            self.sender = self.receiver = None
-            if self.listener:
-                self.listener.close()
-                self.listener = None
-            if self.socket_dir:
-                self.socket_dir.cleanup()
-                self.socket_dir = None
+            # Local processes and consent do not require the shared lock.
+            # Always stop them, even when another app holds identity.lock.
+            self.stop_local_processes()
+            acquired = self.owned_identity and self.identity_lock_fd is None
+            if acquired:
+                try:
+                    self.identity_lock_fd = self.acquire_identity_lock()
+                except Exception as exc:
+                    detail = "Local transfers stopped; retry Stop to finish radio and identity cleanup: " + str(exc)
+                    self.status("discovering", detail)
+                    raise RuntimeError(detail) from None
+            try:
+                return self.stop_runtime()
+            finally:
+                if acquired:
+                    self.release_identity_lock()
+
+    def stop_runtime(self):
+        with self.lifecycle:
+            if self.owned_identity and not self.identity_is_current():
+                # omdrop off/identity lock may have replaced our window with a
+                # different session. Tear down our processes without stopping
+                # that other session's radio or clearing its identity.
+                self.owned_radio = False
             if self.owned_radio:
                 rc, out, err = self.helper("stop", privileged=True, timeout=45)
                 if rc != 0:
-                    raise RuntimeError((err or out).strip()[-2000:] or "Radio cleanup failed")
+                    # Retain the ownership window for a safe locked retry.
+                    detail = "Local transfers stopped; retry Stop to finish radio cleanup: " + ((err or out).strip()[-2000:] or "Radio cleanup failed")
+                    self.status("discovering", detail)
+                    raise RuntimeError(detail)
                 self.owned_radio = False
-            self.peer_table = {}
-            self.emit({"type": "peers", "peers": []})
+            try:
+                self.clear_identity()
+            except Exception as exc:
+                detail = "Local transfers stopped; retry Stop to finish identity cleanup: " + str(exc)
+                self.status("discovering", detail)
+                raise RuntimeError(detail) from None
             self.status("stopped")
             return {"stopped": True}
+
+    def stop_local_processes(self):
+        with self.offer_lock:
+            pending_offers = list(self.offers.items())
+            self.offers.clear()
+            for _, pending in pending_offers:
+                pending["accept"] = False
+                pending["event"].set()
+        for offer_id, _ in pending_offers:
+            self.emit({"type": "transfer", "direction": "receive", "offerId": offer_id, "state": "rejected"})
+        # A lifetime guard spends up to eight seconds terminating its child
+        # group. Let it finish before forcibly killing the outer guard.
+        terminate(self.sender, grace=12)
+        terminate(self.receiver, grace=12)
+        self.sender = self.receiver = None
+        if self.listener:
+            self.listener.close()
+            self.listener = None
+        if self.socket_dir:
+            self.socket_dir.cleanup()
+            self.socket_dir = None
+        self.peer_table = {}
+        self.emit({"type": "peers", "peers": []})
 
     def handle(self, command):
         request_id = command.get("id")
